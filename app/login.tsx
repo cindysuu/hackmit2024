@@ -1,60 +1,133 @@
-import { useSignIn } from '@clerk/clerk-expo'
-import { Link, useRouter } from 'expo-router'
-import { Text, TextInput, Button, View } from 'react-native'
-import React from 'react'
+import * as React from 'react';
+import { TextInput, Button, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { useSignIn, useOAuth} from '@clerk/clerk-expo';
+import { useRouter } from 'expo-router';
 
 export default function LoginScreen() {
-  const { signIn, setActive, isLoaded } = useSignIn()
-  const router = useRouter()
+  const { isLoaded, signIn, setActive } = useSignIn();
+  const { startOAuthFlow } = useOAuth({strategy: 'oauth_google'});
+  const router = useRouter();
 
-  const [emailAddress, setEmailAddress] = React.useState('')
-  const [password, setPassword] = React.useState('')
+  const [emailAddress, setEmailAddress] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [pendingVerification, setPendingVerification] = React.useState(false);
+  const [code, setCode] = React.useState('');
 
-  const onSignInPress = React.useCallback(async () => {
-    if (!isLoaded) {
-      return
-    }
+  const onLoginPress = async () => {
+    if (!isLoaded) return;
 
     try {
-      const signInAttempt = await signIn.create({
-        identifier: emailAddress,
+      const response = await signIn.create({
+        identifier: emailAddress, // Email or username
         password,
-      })
+      });
 
-      if (signInAttempt.status === 'complete') {
-        await setActive({ session: signInAttempt.createdSessionId })
-        router.replace('/')
-      } else {
-        // See https://clerk.com/docs/custom-flows/error-handling
-        // for more info on error handling
-        console.error(JSON.stringify(signInAttempt, null, 2))
+      if (response.status === 'needs_first_factor') {
+        setPendingVerification(true);
+      } else if (response.createdSessionId) {
+        await setActive({ session: response.createdSessionId });
+        router.replace('/');
       }
-    } catch (err: any) {
-      console.error(JSON.stringify(err, null, 2))
+    } catch (err) {
+      console.error(JSON.stringify(err, null, 2));
     }
-  }, [isLoaded, emailAddress, password])
+  };
+
+  const onPressVerify = async () => {
+    if (!isLoaded) return;
+
+    try {
+      const completeSignIn = await signIn.attemptFirstFactor({
+        strategy: 'email_code',
+        code,
+      });
+
+      if (completeSignIn.status === 'complete') {
+        await setActive({ session: completeSignIn.createdSessionId });
+        router.replace('/');
+      } else {
+        console.error(JSON.stringify(completeSignIn, null, 2));
+      }
+    } catch (err) {
+      console.error(JSON.stringify(err, null, 2));
+    }
+  };
 
   return (
-    <View>
-      <TextInput
-        autoCapitalize="none"
-        value={emailAddress}
-        placeholder="Email..."
-        onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
-      />
-      <TextInput
-        value={password}
-        placeholder="Password..."
-        secureTextEntry={true}
-        onChangeText={(password) => setPassword(password)}
-      />
-      <Button title="Sign In" onPress={onSignInPress} />
-      <View>
-        <Text>Don't have an account?</Text>
-        <Link href="/signup">
-          <Text>Sign up</Text>
-        </Link>
-      </View>
+    <View style={styles.container}>
+      {!pendingVerification ? (
+        <>
+          <Text style={styles.title}>LOGIN</Text>
+          <TextInput
+            autoCapitalize="none"
+            value={emailAddress}
+            placeholder="Email..."
+            onChangeText={setEmailAddress}
+            style={styles.input}
+          />
+          <TextInput
+            value={password}
+            placeholder="Password..."
+            secureTextEntry={true}
+            onChangeText={setPassword}
+            style={styles.input}
+          />
+          <TouchableOpacity style={styles.button} onPress={onLoginPress}>
+            <Text style={styles.buttonText}>LOGIN</Text>
+          </TouchableOpacity>
+        </>
+      ) : (
+        <>
+          <TextInput
+            value={code}
+            placeholder="Code..."
+            onChangeText={setCode}
+            style={styles.input}
+          />
+          <TouchableOpacity style={styles.button} onPress={onPressVerify}>
+            <Text style={styles.buttonText}>Verify Code</Text>
+          </TouchableOpacity>
+        </>
+      )}
     </View>
-  )
+  );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: 20,
+    backgroundColor: '#f0f0f0',
+  },
+  title: {
+    fontFamily: 'Lato_700Bold',
+    fontSize: 32,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 40,
+  },
+  input: {
+    height: 50,
+    fontFamily: 'Lato_400Regular',
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingHorizontal: 15,
+    marginBottom: 20,
+    backgroundColor: '#fff',
+  },
+  button: {
+    fontFamily: 'Lato_700Bold',
+    backgroundColor: '#6200ee',
+    paddingVertical: 15,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 18,
+  },
+});
