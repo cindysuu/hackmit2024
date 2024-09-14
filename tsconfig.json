@@ -1,10 +1,7 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-<<<<<<< HEAD
-=======
     "target": "es5",
->>>>>>> dd2ecb22b291bdc8dea842a3535574185374d302
     "jsx": "react",
     "strict": true,
     "esModuleInterop": true,

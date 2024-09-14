@@ -17,9 +17,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as SecureStore from 'expo-secure-store';
 import { Tabs } from 'expo-router';
-import IndexScreen from "./index";
-import ProfileScreen from "./profile";
-import InventoryScreen from "./inventory";
 import LandingScreen from "./landing";
 import SignUpScreen from "./signup";
 import LoginScreen from "./login"
@@ -90,9 +87,6 @@ function ClerkApp() {
     <ConvexProvider client={convex}>
       {isSignedIn ? (
         <Tab.Navigator>
-          <Tab.Screen name="index" component={IndexScreen} />
-          <Tab.Screen name="profile" component={ProfileScreen} />
-          <Tab.Screen name="inventory" component={InventoryScreen} />
           <Tab.Screen name="StocksView" component={StocksStack} options={{ headerShown: false }} />
           <Tab.Screen name="BrowseView" component={require("./BrowseView").default} />
           <Tab.Screen name="ProfileView" component={require("./ProfileView").default} />
