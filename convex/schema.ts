@@ -10,13 +10,12 @@ export default defineSchema({
     user: v.id("users"),
   }),
   users: defineTable({
-    id: v.id(),
     name: v.string(),
     hashedPassword: v.string(),
     isParent: v.boolean(),
   }),
   stocksOwned: defineTable({
-    name: v.symbol("stocks"),
+    name: v.id("stocks"),
     quantity: v.int64(),
     user: v.id("users"),
   }),
