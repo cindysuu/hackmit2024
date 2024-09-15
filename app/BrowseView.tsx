@@ -20,19 +20,32 @@ export default function BrowseView() {
     { name: 'Minecraft', category: 'Games', image: require('../assets/browse/minecraft.png') },
     { name: 'Nintendo', category: 'Games', image: require('../assets/browse/nintendo.png') },
     { name: 'Roblox', category: 'Games', image: require('../assets/browse/roblox.jpeg') },
+    { name: 'Sony', category: 'Games', image: require('../assets/browse/sony.jpeg') },  // New addition
+  
     { name: 'Disney', category: 'Entertainment', image: require('../assets/browse/disney.jpeg') },
     { name: 'Netflix', category: 'Entertainment', image: require('../assets/browse/netflix.png') },
     { name: 'Youtube', category: 'Entertainment', image: require('../assets/browse/youtube.jpg') },
+    { name: 'Paramount', category: 'Entertainment', image: require('../assets/browse/paramount.jpg') },  // New addition
+    { name: 'AMC', category: 'Entertainment', image: require('../assets/browse/amc.jpeg') },  // New addition
+  
     { name: 'Meta', category: 'Social Media', image: require('../assets/browse/meta.jpeg') },
     { name: 'Pinterest', category: 'Social Media', image: require('../assets/browse/pinterest.png') },
     { name: 'Snapchat', category: 'Social Media', image: require('../assets/browse/snap.jpeg') },
+    { name: 'Reddit', category: 'Social Media', image: require('../assets/browse/reddit.jpg') },  // New addition
+    { name: 'Spotify', category: 'Social Media', image: require('../assets/browse/spotify.jpeg') },  // New addition
+  
     { name: 'Mcdonalds', category: 'Food', image: require('../assets/browse/mcdonalds.jpg') },
     { name: 'Hershey', category: 'Food', image: require('../assets/browse/hershey.png') },
     { name: 'Krispy Kreme', category: 'Food', image: require('../assets/browse/krispykreme.jpg') },
+    { name: 'Starbucks', category: 'Food', image: require('../assets/browse/starbucks.png') },  // New addition
+    { name: 'Chipotle', category: 'Food', image: require('../assets/browse/chipotle.jpeg') },  // New addition
+    { name: 'Nestle', category: 'Food', image: require('../assets/browse/nestle.jpg') },  // New addition
+  
     { name: 'Sanrio', category: 'Toys', image: require('../assets/browse/sanrio.jpg') },
     { name: 'Mattel', category: 'Toys', image: require('../assets/browse/mattel.jpeg') },
     { name: 'Build-A-Bear', category: 'Toys', image: require('../assets/browse/buildabear.jpg') },
-  ];
+    { name: 'Hasbro', category: 'Toys', image: require('../assets/browse/hasbro.jpg') },  // New addition
+  ];  
 
   // const filteredStocks = stockData.filter(stock =>
   //   stock.name.toLowerCase().includes(searchQuery.toLowerCase()) && searchQuery !== ''
@@ -57,7 +70,7 @@ export default function BrowseView() {
         onChangeText={setSearchQuery}
         value={searchQuery}
       />
-      <ScrollView>
+      <ScrollView style={styles.scrollView}>
         {filteredStocks.map((stock, index) => (
           <View key={index} style={styles.card}>
             <TouchableOpacity onPress={() => handlePress(stock.name)}>
@@ -203,6 +216,9 @@ const categories = [
 ];
 
 const styles = StyleSheet.create({
+  scrollView: {
+    flex: 1,
+  },
   card: {
     paddingTop: 10,
     paddingBottom: 10,
