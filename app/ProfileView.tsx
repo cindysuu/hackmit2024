@@ -30,7 +30,7 @@ export default function ProfileView() {
       <Text style={styles.conversionRateText}>
         Conversion Rate: {Math.round(1 / conversionRate)} 💎 / $1 USD
       </Text>
-      <Button title="Logout" onPress={handleLogout} color="#6200ee"/>
+      <Button title="Logout" onPress={handleLogout}/>
     </View>
   );
 }
@@ -44,8 +44,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#f5f5f5',
   },
   avatarContainer: {
-    width: 100,
-    height: 100,
+    width: 150,
+    height: 150,
     borderRadius: 50,
     backgroundColor: '#6200ee',
     justifyContent: 'center',
@@ -54,19 +54,19 @@ const styles = StyleSheet.create({
   },
   avatarText: {
     fontFamily: 'Lato_700Bold',
-    fontSize: 40,
+    fontSize: 50,
     color: '#fff',
   },
   nameText: {
     fontFamily: 'Lato_700Bold',
-    fontSize: 24,
+    fontSize: 30,
     fontWeight: 'bold',
     color: '#333',
     // marginBottom: 10,
   },
   gemsText: {
     fontFamily: 'Lato_400Regular',
-    fontSize: 18,
+    fontSize: 26,
     color: '#666',
     marginTop: 20,
   },
@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#888',
     marginBottom: 20,
+    marginTop: 10,
   },
   button: {
     backgroundColor: '#6200ee',
