@@ -6,7 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 // import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Ionicons } from '@expo/vector-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faHome, faSearch, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faPlus, faSearch, faUser } from '@fortawesome/free-solid-svg-icons';
 // import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 
@@ -34,6 +34,9 @@ import BuyView from './BuyView';
 import StockChartScreen from './StockChart';
 
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { LogBox } from 'react-native';
+
+LogBox.ignoreAllLogs();
 
 
 // SecureStore token caching for Clerk
@@ -131,7 +134,7 @@ function ClerkApp() {
                 if (route.name === 'StocksView') {
                   iconName = faHome;
                 } else if (route.name === 'BrowseView') {
-                  iconName = faSearch;
+                    iconName = faPlus;
                 } else if (route.name === 'ProfileView') {
                   iconName = faUser;
                 }
