@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import { SafeAreaView, View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import LottieView from 'lottie-react-native';
 
@@ -17,50 +17,52 @@ export default function StocksView() {
   ];
 
   return (
-    <View style={styles.container}>
-      <LottieView
-        source={require('../stockview-animation.json')} // Update with the correct path
-        autoPlay
-        loop
-        style={styles.lottieBackground}
-      />
-      <View style={styles.overlay}>
-        <View style={styles.dashboardBox}>
-          <Text style={styles.totalWinningsText}>Total Gems</Text>
-          <Text style={styles.winningsAmount}>💎 5000</Text>
-        </View>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
+        <LottieView
+          source={require('../stockview-animation.json')} // Update with the correct path
+          autoPlay
+          loop
+          style={styles.lottieBackground}
+        />
+        <View style={styles.overlay}>
+          <View style={styles.dashboardBox}>
+            <Text style={styles.totalWinningsText}>Total Gems</Text>
+            <Text style={styles.winningsAmount}>💎 5000</Text>
+          </View>
 
-        <View style={styles.summaryContainer}>
-          <Text style={styles.summaryTitle}>Today's AI Stock Summary:</Text>
-          <Text style={styles.summaryText}>
-            Today, stock prices for media/entertainment companies are particularly high. This means that your Disney stock is more valuable than usual. It might be a good day to sell some of your stock!
-          </Text>
-        </View>
+          <View style={styles.summaryContainer}>
+            <Text style={styles.summaryTitle}>Today's AI Stock Summary:</Text>
+            <Text style={styles.summaryText}>
+              Today, stock prices for media/entertainment companies are particularly high. This means that your Disney stock is more valuable than usual. It might be a good day to sell some of your stock!
+            </Text>
+          </View>
 
-        <ScrollView style={styles.scrollView}>
-          {stocks.map((stock, index) => (
-            <TouchableOpacity
-              key={index}
-              style={styles.row}
-              onPress={() => {
-                console.log(`Navigating to details of ${stock.name}`);
-                navigateToDetailView(stock.name);
-              }}
-            >
-              <View style={styles.stockNameContainer}>
-                <Text style={styles.stockName}>{stock.name}</Text>
-              </View>
-              <View style={styles.plot}>
-                <Text>📊 Fake Plot</Text>
-              </View>
-              <View style={styles.stockPriceContainer}>
-                <Text style={styles.stockPrice}>{stock.price}</Text>
-              </View>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
+          <ScrollView style={styles.scrollView}>
+            {stocks.map((stock, index) => (
+              <TouchableOpacity
+                key={index}
+                style={styles.row}
+                onPress={() => {
+                  console.log(`Navigating to details of ${stock.name}`);
+                  navigateToDetailView(stock.name);
+                }}
+              >
+                <View style={styles.stockNameContainer}>
+                  <Text style={styles.stockName}>{stock.name}</Text>
+                </View>
+                <View style={styles.plot}>
+                  <Text>📊 Fake Plot</Text>
+                </View>
+                <View style={styles.stockPriceContainer}>
+                  <Text style={styles.stockPrice}>{stock.price}</Text>
+                </View>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 

@@ -2,7 +2,7 @@
 // import { View, Text } from 'react-native';
 
 import React from 'react';
-import { View, TextInput, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import { SafeAreaView, View, TextInput, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 // import { Button } from 'react-native-paper';
 import { Searchbar } from 'react-native-paper';
@@ -16,7 +16,12 @@ export default function BrowseView() {
   const navigation = useNavigation();
 
   return (
-    <View style={{ flex: 1, padding: 10 }}>
+    <SafeAreaView style={{ flex: 1, padding: 10 }}>
+      <Searchbar
+        placeholder="Search"
+        onChangeText={setSearchQuery}
+        value={searchQuery}
+      />
       <ScrollView>
         <View style={styles.cardWrapper}>
           <Card onPress={() => navigation.navigate('BrowseCategoryView', { category: 'Games' })}>
@@ -61,7 +66,7 @@ export default function BrowseView() {
           </Card>
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 

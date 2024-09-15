@@ -62,7 +62,7 @@ const Stack = createNativeStackNavigator();
 
 function StocksStack() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="StocksView" component={StocksView} />
       <Stack.Screen name="StockDetailView" component={StockDetailView} />
       <Stack.Screen name="SellView" component={SellView} />
@@ -73,7 +73,7 @@ function StocksStack() {
 
 function BrowseStack() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="BrowseView" component={BrowseView} />
       <Stack.Screen name="BrowseCategoryView" component={BrowseCategoryView} />
       <Stack.Screen name="BuyView" component={BuyView} />
@@ -104,7 +104,7 @@ function ClerkApp() {
           <Tab.Screen name="StocksView" component={StocksStack} options={{ headerShown: false }} />
           <Tab.Screen name="BrowseView" component={BrowseStack} options={{ headerShown: false }} />
           {/* <Tab.Screen name="BrowseView" component={require("./BrowseView").default} /> */}
-          <Tab.Screen name="ProfileView" component={require("./ProfileView").default} />
+          <Tab.Screen name="ProfileView" component={require("./ProfileView").default} options={{ headerShown: false }}/>
         </Tab.Navigator>
       ) : (
         <Stack.Navigator initialRouteName="landing" screenOptions={{ headerShown: false }}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { SafeAreaView, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 interface StockDetailViewProps {
     route: {
@@ -23,7 +23,7 @@ const StockDetailView: React.FC<StockDetailViewProps> = ({ route, navigation }) 
     const totalPrice = sharesOwned * pricePerShare;
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <Text style={styles.title}>{stockName}</Text>
 
             {/* Plot Section */}
@@ -51,7 +51,7 @@ const StockDetailView: React.FC<StockDetailViewProps> = ({ route, navigation }) 
             <TouchableOpacity style={styles.sellButton} onPress={() => handleSellPress(navigation)}>
                 <Text style={styles.sellButtonText}>Sell</Text>
             </TouchableOpacity>
-        </View>
+        </SafeAreaView>
     );
 };
 

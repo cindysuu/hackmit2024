@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import { SafeAreaView, View, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import { Avatar, Button, Card, Text, TextInput } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 
@@ -9,7 +9,7 @@ export default function BuyView({ route }) {
     const [text, setText] = React.useState("");
   
     return (
-        <View>
+        <SafeAreaView>
             <Text style={styles.stockTitle}>{stock}</Text>
             <Text style={styles.stockSubTitle}>Number of stocks</Text>
             <TextInput
@@ -24,7 +24,7 @@ export default function BuyView({ route }) {
             >
                 BUY
             </Button>
-        </View>
+        </SafeAreaView>
     );
   }
 

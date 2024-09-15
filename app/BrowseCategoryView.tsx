@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TextInput, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import { SafeAreaView, View, TextInput, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import { Avatar, Button, Card, Text } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 
@@ -8,7 +8,7 @@ export default function BrowseCategoryView({ route }) {
     const navigation = useNavigation();
   
     return (
-        <View style={{ flex: 1, padding: 10 }}>
+        <SafeAreaView style={{ flex: 1, padding: 10 }}>
             <Text variant="titleLarge" style={{ fontFamily: 'Lato_700Bold' }}>{category}</Text>
             <ScrollView>
                 <View style={styles.cardWrapper}>
@@ -41,7 +41,7 @@ export default function BrowseCategoryView({ route }) {
                     </Card>
                 </View>
             </ScrollView>
-        </View>
+        </SafeAreaView>
     );
   }
 
