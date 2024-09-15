@@ -62,7 +62,7 @@ export default function StocksView() {
   const handleStockPress = (stockName) => {
     if (stockName === 'Nintendo') {
       setStocks(stocks.filter(stock => stock.name !== 'Nintendo'));
-      setGems(gems + 100); // Increase gems by 100
+      setGems(gems + 15000); // Increase gems by 100
     }
     navigateToDetailView(stockName); // Navigate to the detail view
   };
