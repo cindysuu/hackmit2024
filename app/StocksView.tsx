@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, View, Text, ScrollView, TouchableOpacity, StyleSheet, Modal } from 'react-native';
+type RootStackParamList = {
+  StockDetailView: { stockName: string; stockPrice: number; sharesOwned: number };
+};
+// const navigation = useNavigation<NavigationProp<RootStackParamList>>();;
+import { SafeAreaView, View, Text, ScrollView, TouchableOpacity, StyleSheet, Modal, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import LottieView from 'lottie-react-native';
 import * as Progress from 'react-native-progress';
@@ -49,7 +53,10 @@ export default function StocksView() {
   };
 
   const navigateToDetailView = (stockName) => {
-    navigation.navigate('StockDetailView', { stockName });
+    const stock = stocks.find(s => s.name === stockName);
+    if (stock) {
+      navigation.navigate('StockDetailView', { stockName: stock.name, stockPrice: stock.price, sharesOwned: stock.shares });
+    }
   };
 
   const handleStockPress = (stockName) => {
@@ -114,7 +121,15 @@ export default function StocksView() {
                   <Text style={styles.stockName}>{stock.name}</Text>
                 </View>
                 <View style={styles.plot}>
-                  <Text>🔼</Text>
+                  <View style={styles.plot}>
+                    {stock.name === 'Disney' ? (
+                      <Text>🔼</Text>
+                    ) : stock.name === 'Hello Kitty' ? (
+                      <Text>⏫</Text>
+                    ) : (
+                      <Text>🔽</Text>
+                    )}
+                  </View>
                 </View>
                 <View style={styles.stockPriceContainer}>
                   <Text style={styles.stockPrice}>{stock.price}</Text>

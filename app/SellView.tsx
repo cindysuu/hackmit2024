@@ -5,7 +5,8 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function SellView({ route }) {
     const { stock } = route.params;
-    const stockPrice = 67;
+    const { stockPrice } = route.params;
+    // const stockPrice = 67;
     const stocksOwned = 10;
     const navigation = useNavigation();
     const [text, setText] = React.useState("");

@@ -5,13 +5,12 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function BuyView({ route }) {
     const { stock } = route.params;
-    const stockPrice = 67;
-    // const { stockPrice } = route.params;
+    const { stockPrice } = route.params;
+    const { conversionRate } = route.params;
+    console.log(stockPrice);
     const navigation = useNavigation();
     const [text, setText] = React.useState("");
-
     const gems = 5550;
-    const conversionRate = 0.001;
 
     const numberOfStocks = parseFloat(text) || 0;
     const totalCostInUSD = numberOfStocks * stockPrice;

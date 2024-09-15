@@ -19,9 +19,10 @@ export default function ProfileView() {
   return (
     <View style={styles.container}>
       <View style={styles.avatarContainer}>
-        <Text style={styles.avatarText}>{'U'}</Text>
+        <Text style={styles.avatarText}>{'C'}</Text>
         {/* <Text style={styles.avatarText}>{user?.firstName?.[0]}</Text> */}
       </View>
+      <Text style={styles.nameText}>Welcome Back, Cindy!</Text>
       <Text style={styles.nameText}>
         {user?.firstName} {user?.lastName}
       </Text>
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: '#333',
-    marginBottom: 10,
+    // marginBottom: 10,
   },
   gemsText: {
     fontFamily: 'Lato_400Regular',
