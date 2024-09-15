@@ -66,7 +66,7 @@ export default function BrowseView() {
 }
 
 const categories = [
-  { label: 'Games', icons: ['gamepad', 'puzzle-piece', 'chess'] },
+  { label: 'Games', icons: ['gamepad', 'puzzle-piece'] },
   { label: 'Entertainment', icons: ['film', 'music', 'tv'] },
   { label: 'Social Media', icons: ['facebook', 'twitter', 'instagram'] },
 ];
