@@ -3,8 +3,8 @@ import React from 'react';
 import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
 
 export default function ProfileView() {
-  const gems = 5550; // Define the gems variable
-  const conversionRate = 0.001;
+  const gems = 20500; // Define the gems variable
+  const conversionRate = 0.1;
   const { user } = useUser();
   const { signOut } = useClerk();
 

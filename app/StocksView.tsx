@@ -139,9 +139,9 @@ export default function StocksView() {
                     {stock.name === 'Disney' ? (
                       <Text>🔼</Text>
                     ) : stock.name === 'Hello Kitty' ? (
-                      <Text>⏫</Text>
-                    ) : (
                       <Text>🔽</Text>
+                    ) : (
+                      <Text>⏫</Text>
                     )}
                   </View>
                 </View>

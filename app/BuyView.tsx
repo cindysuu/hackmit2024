@@ -11,7 +11,7 @@ export default function BuyView({ route }) {
     console.log('rate', conversionRate);
     const navigation = useNavigation();
     const [text, setText] = React.useState("");
-    const gems = 5550;
+    const gems = 20500;
 
     const numberOfStocks = parseFloat(text) || 0;
     const totalCostInUSD = numberOfStocks * stockPrice;

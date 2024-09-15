@@ -42,7 +42,7 @@ const StockDetailView: React.FC<StockDetailViewProps> = ({ route, navigation }) 
             { price: 75.00, timestamp: new Date('2023-09-14T00:00:00') },
             { price: 100.00, timestamp: new Date('2023-09-13T00:00:00') },
         ];
-    } else if (stockName === 'Hello Kitty') {
+    } else if (stockName === 'Nintendo') {
         fullData = [
             { price: 100.22, timestamp: new Date('2023-09-26T00:00:00') },
             { price: 80.59, timestamp: new Date('2023-09-25T00:00:00') },
@@ -55,7 +55,7 @@ const StockDetailView: React.FC<StockDetailViewProps> = ({ route, navigation }) 
             { price: 180.00, timestamp: new Date('2023-09-14T00:00:00') },
             { price: 200.00, timestamp: new Date('2023-09-13T00:00:00') },
         ];
-    } else if (stockName === 'Nintendo') {
+    } else if (stockName === 'Hello Kitty') {
         fullData = [
             { price: 62, timestamp: new Date('2023-09-26T00:00:00') },
             { price: 65, timestamp: new Date('2023-09-25T00:00:00') },
