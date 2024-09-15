@@ -15,17 +15,7 @@ export default function BrowseCategoryView({ route }) {
                     <Card onPress={() => navigation.navigate('BuyView', { stock: 'Minecraft' })}>
                         <View style={styles.avatarRow}>
                             <Text style={{ fontFamily: 'Lato_700Bold' }}>Minecraft</Text>
-                            <Avatar.Image size={100} source={require('../assets/images/BrowseGames.jpg')} />
-                            <Text>$1</Text>
-                        </View>
-                    </Card>
-                </View>
-
-                <View style={styles.cardWrapper}>
-                    <Card onPress={() => navigation.navigate('BuyView', { stock: 'Roblox' })}>
-                        <View style={styles.avatarRow}>
-                            <Text style={{ fontFamily: 'Lato_700Bold' }}>Roblox</Text>
-                            <Avatar.Image size={100} source={require('../assets/images/BrowseGames.jpg')} />
+                            <Avatar.Image size={100} source={require('../assets/browse/minecraft.png')} />
                             <Text>$1</Text>
                         </View>
                     </Card>
@@ -35,7 +25,17 @@ export default function BrowseCategoryView({ route }) {
                     <Card onPress={() => navigation.navigate('BuyView', { stock: 'Nintendo' })}>
                         <View style={styles.avatarRow}>
                             <Text style={{ fontFamily: 'Lato_700Bold' }}>Nintendo</Text>
-                            <Avatar.Image size={100} source={require('../assets/images/BrowseGames.jpg')} />
+                            <Avatar.Image size={100} source={require('../assets/browse/nintendo.png')} />
+                            <Text>$1</Text>
+                        </View>
+                    </Card>
+                </View>
+
+                <View style={styles.cardWrapper}>
+                    <Card onPress={() => navigation.navigate('BuyView', { stock: 'Roblox' })}>
+                        <View style={styles.avatarRow}>
+                            <Text style={{ fontFamily: 'Lato_700Bold' }}>Roblox</Text>
+                            <Avatar.Image size={100} source={require('../assets/browse/roblox.jpeg')} />
                             <Text>$1</Text>
                         </View>
                     </Card>

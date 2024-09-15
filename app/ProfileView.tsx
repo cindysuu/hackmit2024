@@ -1,6 +1,6 @@
 import { useClerk, useUser } from '@clerk/clerk-expo';
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
 
 export default function ProfileView() {
   const gems = 5550; // Define the gems variable
@@ -29,7 +29,7 @@ export default function ProfileView() {
       <Text style={styles.conversionRateText}>
         Conversion Rate: {Math.round(1 / conversionRate)} 💎 / $1 USD
       </Text>
-      <Button title="Logout" onPress={handleLogout} color="#6200ee" />
+      <Button title="Logout" onPress={handleLogout} color="#6200ee"/>
     </View>
   );
 }
@@ -74,5 +74,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#888',
     marginBottom: 20,
+  },
+  button: {
+    backgroundColor: '#6200ee',
+    paddingVertical: 15,
+    paddingHorizontal: 10,
+    borderRadius: 8,
+    marginVertical: 10,
+    width: '80%',
+    alignItems: 'center',
   },
 });

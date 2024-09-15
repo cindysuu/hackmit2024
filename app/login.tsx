@@ -57,17 +57,18 @@ export default function LoginScreen() {
     <View style={styles.container}>
       {!pendingVerification ? (
         <>
-          <Text style={styles.title}>LOGIN</Text>
+          <Text style={styles.title}>Welcome back</Text>
+          <Text style={styles.subtitle}>Login to see your investments!</Text>
           <TextInput
             autoCapitalize="none"
             value={emailAddress}
-            placeholder="Email..."
+            placeholder="Email"
             onChangeText={setEmailAddress}
             style={styles.input}
           />
           <TextInput
             value={password}
-            placeholder="Password..."
+            placeholder="Password"
             secureTextEntry={true}
             onChangeText={setPassword}
             style={styles.input}
@@ -106,6 +107,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 40,
+  },
+  subtitle: {
+    fontSize: 18,
+    fontFamily: 'Lato_400Regular',
+    textAlign: 'center',
+    marginBottom: 20,
+    color: '#6200ee',
+    fontWeight: 'bold',
   },
   input: {
     height: 50,

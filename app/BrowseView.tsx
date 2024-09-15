@@ -8,12 +8,46 @@ import { FontAwesome } from '@expo/vector-icons';
 import { Searchbar } from 'react-native-paper';
 import { Avatar, Button, Card, Text } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
-
+import Fuse from 'fuse.js';
 
 export default function BrowseView() {
   const [searchQuery, setSearchQuery] = React.useState('');
   const LeftContent = props => <Avatar.Icon {...props} icon="folder" />
   const navigation = useNavigation();
+
+  const stockData = [
+    { name: 'Minecraft', category: 'Games', image: require('../assets/browse/minecraft.png') },
+    { name: 'Nintendo', category: 'Games', image: require('../assets/browse/nintendo.png') },
+    { name: 'Roblox', category: 'Games', image: require('../assets/browse/roblox.jpeg') },
+    { name: 'Disney', category: 'Entertainment', image: require('../assets/browse/disney.jpeg') },
+    { name: 'Netflix', category: 'Entertainment', image: require('../assets/browse/netflix.png') },
+    { name: 'Youtube', category: 'Entertainment', image: require('../assets/browse/youtube.jpg') },
+    { name: 'Meta', category: 'Social Media', image: require('../assets/browse/meta.jpeg') },
+    { name: 'Pinterest', category: 'Social Media', image: require('../assets/browse/pinterest.png') },
+    { name: 'Snapchat', category: 'Social Media', image: require('../assets/browse/snap.jpeg') },
+    { name: 'Mcdonalds', category: 'Food', image: require('../assets/browse/mcdonalds.jpg') },
+    { name: 'Hershey', category: 'Food', image: require('../assets/browse/hershey.png') },
+    { name: 'Krispy Kreme', category: 'Food', image: require('../assets/browse/krispykreme.jpg') },
+    { name: 'Sanrio', category: 'Toys', image: require('../assets/browse/sanrio.jpg') },
+    { name: 'Mattel', category: 'Toys', image: require('../assets/browse/mattel.jpeg') },
+    { name: 'Build-A-Bear', category: 'Toys', image: require('../assets/browse/buildabear.jpg') },
+  ];
+
+  // const filteredStocks = stockData.filter(stock =>
+  //   stock.name.toLowerCase().includes(searchQuery.toLowerCase()) && searchQuery !== ''
+  // );
+
+  // Fuzzy search using Fuse.js
+  const options = {
+    keys: ['name'],  // Search by stock name
+    threshold: 0.3,  // Lower means more strict matching
+  };
+  const fuse = new Fuse(stockData, options);
+  const filteredStocks = searchQuery !== '' ? fuse.search(searchQuery).map(result => result.item) : [];
+
+  const handlePress = (stockName) => {
+    navigation.navigate('StockDetailView', { stockName });
+  };
 
   return (
     <SafeAreaView style={{ flex: 1, padding: 10 }}>
@@ -23,18 +57,106 @@ export default function BrowseView() {
         value={searchQuery}
       />
       <ScrollView>
-        <View style={styles.cardWrapper}>
+        {filteredStocks.map((stock, index) => (
+          <View key={index} style={styles.card}>
+            <TouchableOpacity onPress={() => handlePress(stock.name)}>
+              <Text style={{ fontFamily: 'Lato_700Bold' }}>{stock.name}</Text>
+            </TouchableOpacity>
+          </View>
+        ))}
+      </ScrollView>
+
+      <ScrollView>
+        <View style={styles.card}>
+            <Text variant="titleLarge" style={{ fontFamily: 'Lato_700Bold', color: '#6200ee' }}>Games</Text>
+          
+          {/* <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}> */}
+          <View style={styles.avatarRow}>
+            <TouchableOpacity onPress={() => handlePress('Minecraft')}>
+              <Avatar.Image size={100} source={require('../assets/browse/minecraft.png')} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handlePress('Nintendo')}>
+              <Avatar.Image size={100} source={require('../assets/browse/nintendo.png')} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handlePress('Roblox')}>
+              <Avatar.Image size={100} source={require('../assets/browse/roblox.jpeg')} />
+            </TouchableOpacity>
+          </View>
+          {/* </ScrollView> */}
+
+        </View>
+
+        <View style={styles.card}>
+          <Text variant="titleLarge" style={{ fontFamily: 'Lato_700Bold', color: '#6200ee' }}>Entertainment</Text>
+          <View style={styles.avatarRow}>
+            <TouchableOpacity onPress={() => handlePress('Disney')}>
+              <Avatar.Image size={100} source={require('../assets/browse/disney.jpeg')} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handlePress('Netflix')}>
+              <Avatar.Image size={100} source={require('../assets/browse/netflix.png')} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handlePress('Youtube')}>
+              <Avatar.Image size={100} source={require('../assets/browse/youtube.jpg')} />
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <View style={styles.card}>
+          <Text variant="titleLarge" style={{ fontFamily: 'Lato_700Bold', color: '#6200ee' }}>Social Media</Text>
+          <View style={styles.avatarRow}>
+            <TouchableOpacity onPress={() => handlePress('Meta')}>
+              <Avatar.Image size={100} source={require('../assets/browse/meta.jpeg')} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handlePress('Pinterest')}>
+              <Avatar.Image size={100} source={require('../assets/browse/pinterest.png')} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handlePress('Snapchat')}>
+              <Avatar.Image size={100} source={require('../assets/browse/snap.jpeg')} />
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <View style={styles.card}>
+          <Text variant="titleLarge" style={{ fontFamily: 'Lato_700Bold', color: '#6200ee' }}>Food</Text>
+          <View style={styles.avatarRow}>
+            <TouchableOpacity onPress={() => handlePress('Mcdonalds')}>
+              <Avatar.Image size={100} source={require('../assets/browse/mcdonalds.jpg')} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handlePress('Hershey')}>
+              <Avatar.Image size={100} source={require('../assets/browse/hershey.png')} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handlePress('Krispy Kreme')}>
+              <Avatar.Image size={100} source={require('../assets/browse/krispykreme.jpg')} />
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <View style={styles.card}>
+          <Text variant="titleLarge" style={{ fontFamily: 'Lato_700Bold', color: '#6200ee' }}>Toys</Text>
+          <View style={styles.avatarRow}>
+            <TouchableOpacity onPress={() => handlePress('Sanrio')}>
+              <Avatar.Image size={100} source={require('../assets/browse/sanrio.jpg')} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handlePress('Mattel')}>
+              <Avatar.Image size={100} source={require('../assets/browse/mattel.jpeg')} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handlePress('Build-A-Bear')}>
+              <Avatar.Image size={100} source={require('../assets/browse/buildabear.jpg')} />
+            </TouchableOpacity>
+          </View>
+        </View>
+
+
+        {/* <View style={styles.cardWrapper}>
           <Card onPress={() => navigation.navigate('BrowseCategoryView', { category: 'Games' })}>
             <Card.Content>
               <Text variant="titleLarge" style={{ fontFamily: 'Lato_700Bold' }}>Games</Text>
-              {/* <Text variant="bodyMedium">Minecraft, Roblox</Text> */}
             </Card.Content>
             <View style={styles.avatarRow}>
-              <Avatar.Image size={100} source={require('../assets/images/BrowseGames.jpg')} />
-              <Avatar.Image size={100} source={require('../assets/images/BrowseGames.jpg')} />
-              <Avatar.Image size={100} source={require('../assets/images/BrowseGames.jpg')} />
+              <Avatar.Image size={100} source={require('../assets/browse/minecraft.png')} />
+              <Avatar.Image size={100} source={require('../assets/browse/nintendo.png')} />
+              <Avatar.Image size={100} source={require('../assets/browse/roblox.jpeg')} />
             </View>
-            {/* <Card.Cover source={require('../assets/images/BrowseGames.jpg')} style={styles.image} />  */}
           </Card>
         </View>
 
@@ -42,12 +164,11 @@ export default function BrowseView() {
           <Card onPress={() => navigation.navigate('BrowseCategoryView', { category: 'Entertainment' })}>
             <Card.Content>
               <Text variant="titleLarge" style={{ fontFamily: 'Lato_700Bold' }}>Entertainment</Text>
-              <Text variant="bodyMedium" style={{ fontFamily: 'Lato_400Regular' }}>Netflix, Youtube</Text>
             </Card.Content>
             <View style={styles.avatarRow}>
-              <Avatar.Image size={100} source={require('../assets/images/BrowseGames.jpg')} />
-              <Avatar.Image size={100} source={require('../assets/images/BrowseGames.jpg')} />
-              <Avatar.Image size={100} source={require('../assets/images/BrowseGames.jpg')} />
+              <Avatar.Image size={100} source={require('../assets/browse/disney.jpeg')} />
+              <Avatar.Image size={100} source={require('../assets/browse/netflix.png')} />
+              <Avatar.Image size={100} source={require('../assets/browse/youtube.jpg')} />
             </View>
           </Card>
         </View>
@@ -56,15 +177,28 @@ export default function BrowseView() {
           <Card onPress={() => navigation.navigate('BrowseCategoryView', { category: 'Social Media' })}>
             <Card.Content>
               <Text variant="titleLarge" style={{ fontFamily: 'Lato_700Bold' }}>Social Media</Text>
-              <Text variant="bodyMedium" style={{ fontFamily: 'Lato_400Regular' }}>Instagram, Snapchat, Twitter</Text>
             </Card.Content>
             <View style={styles.avatarRow}>
-              <Avatar.Image size={100} source={require('../assets/images/BrowseGames.jpg')} />
-              <Avatar.Image size={100} source={require('../assets/images/BrowseGames.jpg')} />
-              <Avatar.Image size={100} source={require('../assets/images/BrowseGames.jpg')} />
+              <Avatar.Image size={100} source={require('../assets/browse/meta.jpeg')} />
+              <Avatar.Image size={100} source={require('../assets/browse/pinterest.png')} />
+              <Avatar.Image size={100} source={require('../assets/browse/snap.jpeg')} />
             </View>
           </Card>
         </View>
+
+        <View style={styles.cardWrapper}>
+          <Card onPress={() => navigation.navigate('BrowseCategoryView', { category: 'Food' })}>
+            <Card.Content>
+              <Text variant="titleLarge" style={{ fontFamily: 'Lato_700Bold' }}>Food</Text>
+            </Card.Content>
+            <View style={styles.avatarRow}>
+              <Avatar.Image size={100} source={require('../assets/browse/sanrio.jpg')} />
+              <Avatar.Image size={100} source={require('../assets/browse/mattel.jpeg')} />
+              <Avatar.Image size={100} source={require('../assets/browse/buildabear.jpg')} />
+            </View>
+          </Card>
+        </View> */}
+
       </ScrollView>
     </SafeAreaView>
   );
@@ -77,6 +211,17 @@ const categories = [
 ];
 
 const styles = StyleSheet.create({
+  card: {
+    padding: 16,
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+    marginBottom: 16,
+  },
   imageWrapper: {
     width: 150,   // Define the width of the image
     height: 150,  // Define the height of the image
@@ -91,6 +236,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row', // Aligns avatars in a row
     justifyContent: 'space-around', // Spaces them evenly
     marginVertical: 10, // Adds some vertical margin around the avatars
+    // paddingHorizontal: 10,
   },
   cardWrapper: {
     padding: 10,  // Add padding around each card

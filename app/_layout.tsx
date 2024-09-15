@@ -3,7 +3,12 @@ import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 // import { Stack } from "expo-router";
-import Ionicons from 'react-native-vector-icons/Ionicons';
+// import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faHome, faSearch, faUser } from '@fortawesome/free-solid-svg-icons';
+// import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+
 
 import StocksView from './StocksView';
 import StockDetailView from './StockDetailView';
@@ -24,6 +29,12 @@ import {useFonts, Lato_400Regular, Lato_700Bold} from '@expo-google-fonts/lato';
 
 import BrowseCategoryView from './BrowseCategoryView';
 import BuyView from './BuyView';
+
+// import StockChartScreen from './components/StockChart';
+import StockChartScreen from './StockChart';
+
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
 
 // SecureStore token caching for Clerk
 const tokenCache = {
@@ -65,7 +76,9 @@ function StocksStack() {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="StocksView" component={StocksView} />
       <Stack.Screen name="StockDetailView" component={StockDetailView} />
+      <Stack.Screen name="StockChart" component={StockChartScreen} />
       <Stack.Screen name="SellView" component={SellView} />
+      <Stack.Screen name="BuyView" component={BuyView} />
       <Stack.Screen name="SuccessView" component={SuccessView} />
     </Stack.Navigator>
   );
@@ -75,7 +88,9 @@ function BrowseStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="BrowseView" component={BrowseView} />
-      <Stack.Screen name="BrowseCategoryView" component={BrowseCategoryView} />
+      <Stack.Screen name="StockDetailView" component={StockDetailView} />
+      {/* <Stack.Screen name="BrowseCategoryView" component={BrowseCategoryView} /> */}
+      <Stack.Screen name="SellView" component={SellView} />
       <Stack.Screen name="BuyView" component={BuyView} />
       <Stack.Screen name="SuccessView" component={SuccessView} />
     </Stack.Navigator>
@@ -99,20 +114,46 @@ function ClerkApp() {
 
   return (
     <ConvexProvider client={convex}>
-      {isSignedIn ? (
+      <GestureHandlerRootView style={{ flex: 1 }}>
+      {/* {isSignedIn ? (
         <Tab.Navigator>
           <Tab.Screen name="StocksView" component={StocksStack} options={{ headerShown: false }} />
           <Tab.Screen name="BrowseView" component={BrowseStack} options={{ headerShown: false }} />
-          {/* <Tab.Screen name="BrowseView" component={require("./BrowseView").default} /> */}
           <Tab.Screen name="ProfileView" component={require("./ProfileView").default} options={{ headerShown: false }}/>
         </Tab.Navigator>
-      ) : (
+      ) : ( */}
+      {isSignedIn ? (
+          <Tab.Navigator
+            screenOptions={({ route }) => ({
+              tabBarIcon: ({ focused, color, size }) => {
+                let iconName;
+
+                if (route.name === 'StocksView') {
+                  iconName = faHome;
+                } else if (route.name === 'BrowseView') {
+                  iconName = faSearch;
+                } else if (route.name === 'ProfileView') {
+                  iconName = faUser;
+                }
+
+                // Return the FontAwesomeIcon component with the selected icon
+                return <FontAwesomeIcon icon={iconName} size={size} color={color} />;
+              },
+              tabBarLabel: () => null,
+            })}
+          >
+            <Tab.Screen name="StocksView" component={StocksStack} options={{ headerShown: false }} />
+            <Tab.Screen name="BrowseView" component={BrowseStack} options={{ headerShown: false }} />
+            <Tab.Screen name="ProfileView" component={require("./ProfileView").default} options={{ headerShown: false }} />
+          </Tab.Navigator>
+        ) : (
         <Stack.Navigator initialRouteName="landing" screenOptions={{ headerShown: false }}>
           <Stack.Screen name="landing" component={LandingScreen} />
           <Stack.Screen name="signup" component={SignUpScreen} />
           <Stack.Screen name="login" component={LoginScreen} />
         </Stack.Navigator>
       )}
+      </GestureHandlerRootView>
     </ConvexProvider>
   );
 }

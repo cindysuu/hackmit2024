@@ -1,5 +1,6 @@
 import React from 'react';
 import { SafeAreaView, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { Button } from 'react-native-paper';
 
 interface StockDetailViewProps {
     route: {
@@ -48,9 +49,25 @@ const StockDetailView: React.FC<StockDetailViewProps> = ({ route, navigation }) 
             </View>
 
             {/* Custom Sell Button */}
-            <TouchableOpacity style={styles.sellButton} onPress={() => handleSellPress(navigation)}>
+            {/* <TouchableOpacity style={styles.sellButton} onPress={() => handleSellPress(navigation)}>
                 <Text style={styles.sellButtonText}>Sell</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
+
+            <Button
+                mode="contained"
+                onPress={() => navigation.navigate('BuyView', { stock: stockName })}
+                style={styles.button}
+            >
+                Buy
+            </Button>
+
+            <Button
+                mode="contained"
+                onPress={() => navigation.navigate('SellView', { stock: stockName })}
+                style={styles.button}
+            >
+                Sell
+            </Button>
         </SafeAreaView>
     );
 };
@@ -113,20 +130,39 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#6200ee',
     },
-    sellButton: {
-        backgroundColor: '#6200ee', // Filled purple color
-        paddingVertical: 15,
-        paddingHorizontal: 30,
-        borderRadius: 8,
-        alignItems: 'center',
-        justifyContent: 'center',
-        elevation: 3, // Gives shadow effect
-    },
-    sellButtonText: {
+    // button: {
+    //     backgroundColor: '#6200ee',
+    //     paddingVertical: 15,
+    //     marginHorizontal: 90,
+    //     borderRadius: 8,
+    //     alignItems: 'center',
+    //     marginTop: 20,
+    // },
+    // buttonText: {
+    //     color: '#fff',
+    //     fontWeight: 'bold',
+    //     fontSize: 18,
+    // },
+    // sellButton: {
+    //     backgroundColor: '#6200ee', // Filled purple color
+    //     paddingVertical: 15,
+    //     paddingHorizontal: 30,
+    //     borderRadius: 8,
+    //     alignItems: 'center',
+    //     justifyContent: 'center',
+    //     elevation: 3, // Gives shadow effect
+    // },
+    // sellButtonText: {
+    //     fontFamily: 'Lato_700Bold',
+    //     color: '#fff', // White text
+    //     fontSize: 18,
+    //     fontWeight: 'bold',
+    // },
+    button: {
         fontFamily: 'Lato_700Bold',
-        color: '#fff', // White text
-        fontSize: 18,
-        fontWeight: 'bold',
+        margin: 20,
+        padding: 10,
+        backgroundColor: '#6200ee',
     },
 });
 

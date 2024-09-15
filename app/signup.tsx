@@ -46,29 +46,30 @@ export default function SignUpScreen() {
     <View style={styles.container}>
       {!pendingVerification ? (
         <>
-          <Text style={styles.title}>CREATE AN ACCOUNT</Text>
+          <Text style={styles.title}>Welcome</Text>
+          <Text style={styles.subtitle}>Create an account to invest!</Text>
           <TextInput
             autoCapitalize="none"
             value={emailAddress}
-            placeholder="Email..."
+            placeholder="Email"
             onChangeText={setEmailAddress}
             style={styles.input}
           />
           <TextInput
             value={username}
-            placeholder="Username..."
+            placeholder="Username"
             onChangeText={setUsername}
             style={styles.input}
           />
           <TextInput
             value={password}
-            placeholder="Password..."
+            placeholder="Password"
             secureTextEntry={true}
             onChangeText={setPassword}
             style={styles.input}
           />
           <TouchableOpacity style={styles.button} onPress={onSignUpPress}>
-            <Text style={styles.buttonText}>SIGN UP</Text>
+            <Text style={styles.buttonText}>Sign Up</Text>
           </TouchableOpacity>
         </>
       ) : (
@@ -101,6 +102,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 40,
+  },
+  subtitle: {
+    fontSize: 18,
+    fontFamily: 'Lato_400Regular',
+    textAlign: 'center',
+    marginBottom: 20,
+    color: '#6200ee',
+    fontWeight: 'bold',
   },
   input: {
     height: 50,

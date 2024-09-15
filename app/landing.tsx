@@ -18,7 +18,16 @@ export default function LandingScreen() {
       
       {/* Overlay Content */}
       <View style={styles.overlay}>
-        <Text style={styles.title}>WELCOME TO FUTURES</Text>
+        <Text style={styles.title}>
+          WELCOME TO <Text style={{ fontWeight: 'bold', color: '#6200ee' }}>FUTURES</Text>
+        </Text>
+
+        <LottieView
+          source={require('../buy-sell-animation.json')}
+          autoPlay
+          loop
+          style={styles.lottieBackground}
+        />
         
         <TouchableOpacity
           style={styles.button}
@@ -77,4 +86,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: 'white',
   },
+  lottieBackground: {
+    width: 200,
+    height: 200,
+},
 });

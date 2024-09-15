@@ -1,10 +1,53 @@
-import React from 'react';
-import { SafeAreaView, View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { SafeAreaView, View, Text, ScrollView, TouchableOpacity, StyleSheet, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import LottieView from 'lottie-react-native';
+import {
+  LineChart,
+  BarChart,
+  PieChart,
+  ProgressChart,
+  ContributionGraph,
+  StackedBarChart
+} from "react-native-chart-kit";
+import { Dimensions } from "react-native";
+import StockChart from './StockChart';
+
 
 export default function StocksView() {
   const navigation = useNavigation();
+  
+  // const screenWidth = Dimensions.get("window").width;
+  // const data = {
+  //   labels: ["January", "February", "March", "April", "May", "June"],
+  //   datasets: [
+  //     {
+  //       data: [20, 45, 28, 80, 99, 43],
+  //       color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
+  //       strokeWidth: 2 // optional
+  //     }
+  //   ],
+  //   legend: ["Rainy Days"] // optional
+  // };
+  // const chartConfig = {
+  //   backgroundGradientFrom: "#1E2923",
+  //   backgroundGradientFromOpacity: 0,
+  //   backgroundGradientTo: "#08130D",
+  //   backgroundGradientToOpacity: 0.5,
+  //   color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+  //   strokeWidth: 2, // optional, default 3
+  //   barPercentage: 0.5,
+  //   useShadowColorFromDataset: false // optional
+  // };
+  // const chartConfig = {
+  //   backgroundColor: "#e26a00",
+  //   backgroundGradientFrom: "#fb8c00",
+  //   backgroundGradientTo: "#ffa726",
+  //   color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+  //   labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+  //   strokeWidth: 2, // optional, default 3
+  //   barPercentage: 0.5,
+  // };
 
   const navigateToDetailView = (stockName: string) => {
     navigation.navigate('StockDetailView', { stockName });
@@ -25,7 +68,13 @@ export default function StocksView() {
           loop
           style={styles.lottieBackground}
         />
+
+        {/* <View style={styles.stockChartContainer}>
+          <StockChart />
+        </View> */}
+
         <View style={styles.overlay}>
+
           <View style={styles.dashboardBox}>
             <Text style={styles.totalWinningsText}>Total Gems</Text>
             <Text style={styles.winningsAmount}>💎 5000</Text>
@@ -52,7 +101,8 @@ export default function StocksView() {
                   <Text style={styles.stockName}>{stock.name}</Text>
                 </View>
                 <View style={styles.plot}>
-                  <Text>📊 Fake Plot</Text>
+                  <Text>🔼</Text>
+                  {/* <Text>📊 Fake Plot</Text> */}
                 </View>
                 <View style={styles.stockPriceContainer}>
                   <Text style={styles.stockPrice}>{stock.price}</Text>
@@ -74,6 +124,14 @@ const styles = StyleSheet.create({
   lottieBackground: {
     ...StyleSheet.absoluteFillObject,
     zIndex: -1,
+  },
+  stockChartContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 220, // Adjust height as needed
+    zIndex: 2, // Ensure StockChart is above the Lottie animation and other content
   },
   overlay: {
     flex: 1,
