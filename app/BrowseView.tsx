@@ -77,9 +77,22 @@ export default function BrowseView() {
         onChangeText={setSearchQuery}
         value={searchQuery}
       />
+      {/* {filteredStocks.length > 0 ? (
+        filteredStocks.map(stock => (
+          <TouchableOpacity key={stock.index} onPress={() => handlePress(stock.name)}>
+            <Card style={{ marginBottom: 10 }}>
+              <Card.Title title={stock.name} subtitle={stock.category} left={LeftContent} />
+              <Card.Cover source={stock.image} />
+            </Card>
+          </TouchableOpacity>
+        ))
+      ) : (
+        <Text style={{ textAlign: 'center', marginTop: 20 }}>No results found</Text>
+      )} */}
+
       <ScrollView style={styles.scrollView}>
-        {filteredStocks.map((stock, index) => (
-          <View key={index} style={styles.card}>
+        {filteredStocks.map((stock) => (
+          <View style={styles.card}>
             <TouchableOpacity onPress={() => handlePress(stock.name)}>
               <Text style={{ fontFamily: 'Lato_700Bold' }}>{stock.name}</Text>
             </TouchableOpacity>

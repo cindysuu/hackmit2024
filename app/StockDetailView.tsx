@@ -73,7 +73,7 @@ const StockDetailView: React.FC<StockDetailViewProps> = ({ route, navigation }) 
             price: parseFloat((Math.random() * (200 - 20) + 20).toFixed(2)),
             timestamp: new Date(new Date().setDate(new Date().getDate() - i)),
         })).reverse();
-        lastPrice = fullData[-1].price;
+        lastPrice = fullData[fullData.length - 1].price;
         // stockPrice2 = lastPrice;
     }
 
