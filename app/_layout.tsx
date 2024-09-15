@@ -22,6 +22,9 @@ import SignUpScreen from "./signup";
 import LoginScreen from "./login"
 import {useFonts, Lato_400Regular, Lato_700Bold} from '@expo-google-fonts/lato';
 
+import BrowseCategoryView from './BrowseCategoryView';
+import BuyView from './BuyView';
+
 // SecureStore token caching for Clerk
 const tokenCache = {
   async getToken(key: string) {
@@ -68,6 +71,17 @@ function StocksStack() {
   );
 }
 
+function BrowseStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="BrowseView" component={BrowseView} />
+      <Stack.Screen name="BrowseCategoryView" component={BrowseCategoryView} />
+      <Stack.Screen name="BuyView" component={BuyView} />
+      <Stack.Screen name="SuccessView" component={SuccessView} />
+    </Stack.Navigator>
+  );
+}
+
 export default function RootLayout() {
   return (
     <ClerkProvider tokenCache={tokenCache} publishableKey={publishableKey}>
@@ -88,7 +102,8 @@ function ClerkApp() {
       {isSignedIn ? (
         <Tab.Navigator>
           <Tab.Screen name="StocksView" component={StocksStack} options={{ headerShown: false }} />
-          <Tab.Screen name="BrowseView" component={require("./BrowseView").default} />
+          <Tab.Screen name="BrowseView" component={BrowseStack} options={{ headerShown: false }} />
+          {/* <Tab.Screen name="BrowseView" component={require("./BrowseView").default} /> */}
           <Tab.Screen name="ProfileView" component={require("./ProfileView").default} />
         </Tab.Navigator>
       ) : (

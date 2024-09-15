@@ -2,33 +2,64 @@
 // import { View, Text } from 'react-native';
 
 import React from 'react';
-import { View, Text, TextInput, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TextInput, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
+// import { Button } from 'react-native-paper';
+import { Searchbar } from 'react-native-paper';
+import { Avatar, Button, Card, Text } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
+
 
 export default function BrowseView() {
+  const [searchQuery, setSearchQuery] = React.useState('');
+  const LeftContent = props => <Avatar.Icon {...props} icon="folder" />
+  const navigation = useNavigation();
+
   return (
     <View style={{ flex: 1, padding: 10 }}>
-      <TextInput
-      style={styles.searchBar}
-      placeholder="Search..."
-      />
       <ScrollView>
-      {categories.map((category, index) => (
-        <TouchableOpacity 
-        key={index} 
-        style={styles.row} 
-        onPress={() => navigateToDetailView(category.label)}
-        >
-        <Text style={styles.label}>{category.label}</Text>
-        <View style={styles.icons}>
-          {category.icons.map((icon, idx) => (
-          <TouchableOpacity key={idx} style={styles.iconButton}>
-            <FontAwesome name={icon} size={24} color="black" />
-          </TouchableOpacity>
-          ))}
+        <View style={styles.cardWrapper}>
+          <Card onPress={() => navigation.navigate('BrowseCategoryView', { category: 'Games' })}>
+            <Card.Content>
+              <Text variant="titleLarge">Games</Text>
+              {/* <Text variant="bodyMedium">Minecraft, Roblox</Text> */}
+            </Card.Content>
+            <View style={styles.avatarRow}>
+              <Avatar.Image size={100} source={require('../assets/images/BrowseGames.jpg')} />
+              <Avatar.Image size={100} source={require('../assets/images/BrowseGames.jpg')} />
+              <Avatar.Image size={100} source={require('../assets/images/BrowseGames.jpg')} />
+            </View>
+            {/* <Card.Cover source={require('../assets/images/BrowseGames.jpg')} style={styles.image} />  */}
+          </Card>
         </View>
-        </TouchableOpacity>
-      ))}
+
+        <View style={styles.cardWrapper}>
+          <Card onPress={() => navigation.navigate('BrowseCategoryView', { category: 'Entertainment' })}>
+            <Card.Content>
+              <Text variant="titleLarge">Entertainment</Text>
+              <Text variant="bodyMedium">Netflix, Youtube</Text>
+            </Card.Content>
+            <View style={styles.avatarRow}>
+              <Avatar.Image size={100} source={require('../assets/images/BrowseGames.jpg')} />
+              <Avatar.Image size={100} source={require('../assets/images/BrowseGames.jpg')} />
+              <Avatar.Image size={100} source={require('../assets/images/BrowseGames.jpg')} />
+            </View>
+          </Card>
+        </View>
+        
+        <View style={styles.cardWrapper}>
+          <Card onPress={() => navigation.navigate('BrowseCategoryView', { category: 'Social Media' })}>
+            <Card.Content>
+              <Text variant="titleLarge">Social Media</Text>
+              <Text variant="bodyMedium">Instagram, Snapchat, Twitter</Text>
+            </Card.Content>
+            <View style={styles.avatarRow}>
+              <Avatar.Image size={100} source={require('../assets/images/BrowseGames.jpg')} />
+              <Avatar.Image size={100} source={require('../assets/images/BrowseGames.jpg')} />
+              <Avatar.Image size={100} source={require('../assets/images/BrowseGames.jpg')} />
+            </View>
+          </Card>
+        </View>
       </ScrollView>
     </View>
   );
@@ -41,27 +72,22 @@ const categories = [
 ];
 
 const styles = StyleSheet.create({
-  searchBar: {
-    height: 40,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    marginBottom: 10,
+  imageWrapper: {
+    width: 150,   // Define the width of the image
+    height: 150,  // Define the height of the image
+    overflow: 'hidden', // Ensure that the image stays within bounds
   },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 15,
+  image: {
+    width: '100%',  // Make the image fill the wrapper's width
+    height: '100%', // Make the image fill the wrapper's height
+    resizeMode: 'cover',  // Option to maintain aspect ratio
   },
-  label: {
-    flex: 1,
-    fontSize: 18,
+  avatarRow: {
+    flexDirection: 'row', // Aligns avatars in a row
+    justifyContent: 'space-around', // Spaces them evenly
+    marginVertical: 10, // Adds some vertical margin around the avatars
   },
-  icons: {
-    flexDirection: 'row',
-  },
-  iconButton: {
-    marginLeft: 10,
+  cardWrapper: {
+    padding: 10,  // Add padding around each card
   },
 });
