@@ -13,11 +13,25 @@ export default function StocksView() {
   const navigation = useNavigation();
   const [summary, setSummary] = useState('');
   const [loading, setLoading] = useState(true);
-  const [modalVisible, setModalVisible] = useState(false); // State to control modal visibility
-  const [contractDismissed, setContractDismissed] = useState(false); // State to track contract dismissal
-  const [contractInfo, setContractInfo] = useState(''); // State for contract details
+  const [modalVisible, setModalVisible] = useState(false);
+  const [contractDismissed, setContractDismissed] = useState(false);
+  const [contractInfo, setContractInfo] = useState('');
+  const [stocks, setStocks] = useState([
+    { name: 'Disney', price: '$100' },
+    { name: 'Hello Kitty', price: '$200' },
+    { name: 'Nintendo', price: '$50' },
+  ]); // Use state to store stocks
+  const [gems, setGems] = useState(5500);
 
-  // Fetch summary (mock)
+  useEffect(() => {
+    const loadContractState = async () => {
+      const isDismissed = await AsyncStorage.getItem('contractDismissed');
+      setContractDismissed(isDismissed === 'true');
+    };
+    loadContractState();
+    fetchSummary(); // Fetch summary once on load
+  }, []);
+
   const fetchSummary = async () => {
     try {
       const response = await fetch('https://rachllee--news-summary-app-serve-fastapi-app.modal.run/generate-summary', {
@@ -38,21 +52,19 @@ export default function StocksView() {
     }
   };
 
-  // Load contract dismissal state from AsyncStorage
-  useEffect(() => {
-    const loadContractState = async () => {
-      const isDismissed = await AsyncStorage.getItem('contractDismissed');
-      setContractDismissed(isDismissed === 'true');
-    };
-    loadContractState();
-    fetchSummary(); // Fetch summary once on load
-  }, []);
-
   const navigateToDetailView = (stockName) => {
     const stock = stocks.find(s => s.name === stockName);
     if (stock) {
       navigation.navigate('StockDetailView', { stockName: stock.name, stockPrice: stock.price, sharesOwned: stock.shares });
     }
+  };
+
+  const handleStockPress = (stockName) => {
+    if (stockName === 'Nintendo') {
+      setStocks(stocks.filter(stock => stock.name !== 'Nintendo'));
+    }
+    setGems(gems + 100); // Increase gems by 100
+    navigateToDetailView(stockName); // Navigate to the detail view
   };
 
   const openBond = () => {
@@ -64,24 +76,16 @@ export default function StocksView() {
     setModalVisible(false);
   };
 
-  // Open the contract details and set modal visible
   const openContract = () => {
     setContractInfo('You agreed to sell 10 apples for 1000 gems. Today, apples are worth 800 gems. You earned 1000 - 800 = 200 gems!');
     setModalVisible(true);
   };
 
-  // Close contract and store dismissal state in AsyncStorage
   const closeContract = async () => {
-    await AsyncStorage.setItem('contractDismissed', 'true'); // Store dismissal flag
-    setContractDismissed(true); // Set local state to hide contract
+    await AsyncStorage.setItem('contractDismissed', 'true'); 
+    setContractDismissed(true);
     setModalVisible(false);
   };
-
-  const stocks = [
-    { name: 'Disney', price: 100, shares: 10 },
-    { name: 'Hello Kitty', price: 200, shares: 5 },
-    { name: 'Nintendo', price: 50, shares: 30 },
-  ];
 
   return (
     <SafeAreaView style={styles.container}>
@@ -96,7 +100,7 @@ export default function StocksView() {
         <View style={styles.overlay}>
           <View style={styles.dashboardBox}>
             <Text style={styles.totalWinningsText}>Total Gems</Text>
-            <Text style={styles.winningsAmount}>💎 5550</Text>
+            <Text style={styles.winningsAmount}>💎 {gems}</Text>
           </View>
 
           <View style={styles.summaryContainer}>
@@ -111,7 +115,7 @@ export default function StocksView() {
               <TouchableOpacity
                 key={index}
                 style={styles.row}
-                onPress={() => navigateToDetailView(stock.name)}
+                onPress={() => handleStockPress(stock.name)} // Call handleStockPress when clicked
               >
                 <View style={styles.stockNameContainer}>
                   <Text style={styles.stockName}>{stock.name}</Text>
@@ -141,7 +145,6 @@ export default function StocksView() {
             <Text style={styles.contractStatus}>Status: Expired</Text>
           </TouchableOpacity>
 
-          {/* Contract Box (only shown if not dismissed) */}
           {!contractDismissed && (
             <TouchableOpacity style={styles.contractBox} onPress={openContract}>
               <Text style={styles.contractTitle}>Contract: Sell 10 🍎</Text>
