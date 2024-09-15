@@ -21,7 +21,7 @@ export default function BrowseView() {
         <View style={styles.cardWrapper}>
           <Card onPress={() => navigation.navigate('BrowseCategoryView', { category: 'Games' })}>
             <Card.Content>
-              <Text variant="titleLarge">Games</Text>
+              <Text variant="titleLarge" style={{ fontFamily: 'Lato_700Bold' }}>Games</Text>
               {/* <Text variant="bodyMedium">Minecraft, Roblox</Text> */}
             </Card.Content>
             <View style={styles.avatarRow}>
@@ -36,8 +36,8 @@ export default function BrowseView() {
         <View style={styles.cardWrapper}>
           <Card onPress={() => navigation.navigate('BrowseCategoryView', { category: 'Entertainment' })}>
             <Card.Content>
-              <Text variant="titleLarge">Entertainment</Text>
-              <Text variant="bodyMedium">Netflix, Youtube</Text>
+              <Text variant="titleLarge" style={{ fontFamily: 'Lato_700Bold' }}>Entertainment</Text>
+              <Text variant="bodyMedium" style={{ fontFamily: 'Lato_400Regular' }}>Netflix, Youtube</Text>
             </Card.Content>
             <View style={styles.avatarRow}>
               <Avatar.Image size={100} source={require('../assets/images/BrowseGames.jpg')} />
@@ -50,8 +50,8 @@ export default function BrowseView() {
         <View style={styles.cardWrapper}>
           <Card onPress={() => navigation.navigate('BrowseCategoryView', { category: 'Social Media' })}>
             <Card.Content>
-              <Text variant="titleLarge">Social Media</Text>
-              <Text variant="bodyMedium">Instagram, Snapchat, Twitter</Text>
+              <Text variant="titleLarge" style={{ fontFamily: 'Lato_700Bold' }}>Social Media</Text>
+              <Text variant="bodyMedium" style={{ fontFamily: 'Lato_400Regular' }}>Instagram, Snapchat, Twitter</Text>
             </Card.Content>
             <View style={styles.avatarRow}>
               <Avatar.Image size={100} source={require('../assets/images/BrowseGames.jpg')} />

@@ -22,7 +22,7 @@ export default function BuyView({ route }) {
                 onPress={() => navigation.navigate('SuccessView')}
                 style={styles.button}
             >
-                Buy
+                BUY
             </Button>
         </View>
     );
@@ -30,6 +30,7 @@ export default function BuyView({ route }) {
 
 const styles = StyleSheet.create({
     stockTitle: {
+        fontFamily: 'Lato_700Bold',
         fontWeight: 'bold',
         color: 'black',
         textAlign: 'center',
@@ -37,12 +38,14 @@ const styles = StyleSheet.create({
         marginVertical: 10,
     },
     stockSubTitle: {
+        fontFamily: 'Lato_400Regular',
         color: 'black',
         textAlign: 'center',
         fontSize: 20,
         marginVertical: 10,
     },
     button: {
+        fontFamily: 'Lato_700Bold',
         margin: 20,
         padding: 10,
     },
