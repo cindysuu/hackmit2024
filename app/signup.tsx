@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { TextInput, Button, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { useSignUp } from '@clerk/clerk-expo';
+import { useSignUp, useUser } from '@clerk/clerk-expo';
 import { useRouter } from 'expo-router';
 
 export default function SignUpScreen() {
@@ -33,6 +33,7 @@ export default function SignUpScreen() {
 
       if (completeSignUp.status === 'complete') {
         await setActive({ session: completeSignUp.createdSessionId });
+        const user = useUser();
         router.replace('/');
       } else {
         console.error(JSON.stringify(completeSignUp, null, 2));
