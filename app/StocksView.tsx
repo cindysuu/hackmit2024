@@ -205,12 +205,12 @@ const styles = StyleSheet.create({
   },
   totalWinningsText: {
     fontFamily: 'Lato_700Bold',
-    fontSize: 18,
+    fontSize: 30,
     color: '#333',
   },
   winningsAmount: {
     fontFamily: 'Lato_700Bold',
-    fontSize: 32,
+    fontSize: 35,
     fontWeight: 'bold',
     color: '#6200ee',
   },
@@ -224,13 +224,13 @@ const styles = StyleSheet.create({
   },
   summaryTitle: {
     fontFamily: 'Lato_700Bold',
-    fontSize: 18,
+    fontSize: 25,
     color: '#333',
     marginBottom: 10,
   },
   summaryText: {
     fontFamily: 'Lato_400Regular',
-    fontSize: 16,
+    fontSize: 20,
     color: '#555',
   },
   scrollView: {
@@ -256,7 +256,7 @@ const styles = StyleSheet.create({
   },
   stockName: {
     fontFamily: 'Lato_700Bold',
-    fontSize: 18,
+    fontSize: 24,
     color: '#333',
   },
   plot: {
@@ -281,7 +281,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   contractTitle: {
-    fontSize: 18,
+    fontSize: 22,
     fontFamily: 'Lato_700Bold',
     marginBottom: 10,
   },
@@ -304,12 +304,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalTitle: {
-    fontSize: 20,
+    fontSize: 26,
     fontFamily: 'Lato_700Bold',
     marginBottom: 10,
   },
   modalText: {
-    fontSize: 16,
+    fontSize: 20,
     fontFamily: 'Lato_400Regular',
     textAlign: 'center',
     marginBottom: 20,
@@ -321,6 +321,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   modalButtonText: {
+    fontSize: 18,
     color: '#fff',
     fontFamily: 'Lato_700Bold',
   },
