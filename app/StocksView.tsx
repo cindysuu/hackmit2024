@@ -98,6 +98,20 @@ export default function StocksView() {
         />
 
         <View style={styles.overlay}>
+
+          <Text style={{ 
+            fontSize: 50, 
+            fontWeight: 'bold', 
+            color: '#6200ee', 
+            marginBottom: 20, 
+            textAlign: 'center',   
+            padding: 10,           
+            alignSelf: 'center',     
+            marginTop: 50,          
+          }}>
+            Futures
+          </Text>
+
           <View style={styles.dashboardBox}>
             <Text style={styles.totalWinningsText}>Total Gems</Text>
             <Text style={styles.winningsAmount}>💎 {gems}</Text>
