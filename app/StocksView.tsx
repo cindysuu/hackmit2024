@@ -273,7 +273,7 @@ const styles = StyleSheet.create({
     color: '#6200ee',
   },
   contractBox: {
-    backgroundColor: '#f8f8f8',
+    backgroundColor: '#fff',
     borderRadius: 10,
     padding: 20,
     marginBottom: 20,
