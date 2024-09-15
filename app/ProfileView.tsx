@@ -19,7 +19,8 @@ export default function ProfileView() {
   return (
     <View style={styles.container}>
       <View style={styles.avatarContainer}>
-        <Text style={styles.avatarText}>{user?.firstName?.[0]}</Text>
+        <Text style={styles.avatarText}>{'U'}</Text>
+        {/* <Text style={styles.avatarText}>{user?.firstName?.[0]}</Text> */}
       </View>
       <Text style={styles.nameText}>
         {user?.firstName} {user?.lastName}
