@@ -15,6 +15,9 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
+import type * as mutations from "../mutations.js";
+import type * as readData from "../readData.js";
+import type * as stockActions from "../stockActions.js";
 import type * as stocks from "../stocks.js";
 import type * as streamStocks from "../streamStocks.js";
 
@@ -27,6 +30,9 @@ import type * as streamStocks from "../streamStocks.js";
  * ```
  */
 declare const fullApi: ApiFromModules<{
+  mutations: typeof mutations;
+  readData: typeof readData;
+  stockActions: typeof stockActions;
   stocks: typeof stocks;
   streamStocks: typeof streamStocks;
 }>;
