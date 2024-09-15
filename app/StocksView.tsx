@@ -62,8 +62,8 @@ export default function StocksView() {
   const handleStockPress = (stockName) => {
     if (stockName === 'Nintendo') {
       setStocks(stocks.filter(stock => stock.name !== 'Nintendo'));
+      setGems(gems + 100); // Increase gems by 100
     }
-    setGems(gems + 100); // Increase gems by 100
     navigateToDetailView(stockName); // Navigate to the detail view
   };
 
@@ -138,11 +138,9 @@ export default function StocksView() {
             ))}
           </ScrollView>
 
-          {/* Bond Box */}
           <TouchableOpacity style={styles.contractBox} onPress={openBond}>
             <Text style={styles.contractTitle}>Bond: Wait 1 week for 20 💎</Text>
             <Progress.Bar progress={0.4} width={100} color={'#4CAF50'} />
-            <Text style={styles.contractStatus}>Status: Expired</Text>
           </TouchableOpacity>
 
           {!contractDismissed && (

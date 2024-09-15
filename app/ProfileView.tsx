@@ -19,12 +19,11 @@ export default function ProfileView() {
   return (
     <View style={styles.container}>
       <View style={styles.avatarContainer}>
-        <Text style={styles.avatarText}>{'C'}</Text>
-        {/* <Text style={styles.avatarText}>{user?.firstName?.[0]}</Text> */}
+        <Text style={styles.avatarText}>{user?.firstName?.[0]}</Text>
       </View>
-      <Text style={styles.nameText}>Welcome Back, Cindy!</Text>
+      <Text style={styles.nameText}>Welcome Back,</Text>
       <Text style={styles.nameText}>
-        {user?.firstName} {user?.lastName}
+        {user?.firstName}
       </Text>
       <Text style={styles.gemsText}>{gems} 💎</Text>
       <Text style={styles.gemsText}>${(gems * conversionRate).toFixed(2)} USD</Text>
@@ -69,7 +68,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Lato_400Regular',
     fontSize: 18,
     color: '#666',
-    marginBottom: 10,
+    marginTop: 20,
   },
   conversionRateText: {
     fontFamily: 'Lato_400Regular',
