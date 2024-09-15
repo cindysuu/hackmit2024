@@ -57,10 +57,10 @@ export default function BrowseView() {
     threshold: 0.3,  // Lower means more strict matching
   };
   const fuse = new Fuse(stockData, options);
-  // const filteredStocks = searchQuery !== '' ? fuse.search(searchQuery).map(result => result.item) : [];
-  const filteredStocks = stockData.filter(stock =>
-    stock.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredStocks = searchQuery !== '' ? fuse.search(searchQuery).map(result => result.item) : [];
+  // const filteredStocks = stockData.filter(stock =>
+  //   stock.name.toLowerCase().includes(searchQuery.toLowerCase())
+  // );
   
 
   console.log('searchQuery', searchQuery);
@@ -77,26 +77,14 @@ export default function BrowseView() {
         onChangeText={setSearchQuery}
         value={searchQuery}
       />
-      {/* {filteredStocks.length > 0 ? (
-        filteredStocks.map(stock => (
+
+      <ScrollView>
+        {filteredStocks.map(stock => (
           <TouchableOpacity key={stock.index} onPress={() => handlePress(stock.name)}>
             <Card style={{ marginBottom: 10 }}>
-              <Card.Title title={stock.name} subtitle={stock.category} left={LeftContent} />
               <Card.Cover source={stock.image} />
             </Card>
           </TouchableOpacity>
-        ))
-      ) : (
-        <Text style={{ textAlign: 'center', marginTop: 20 }}>No results found</Text>
-      )} */}
-
-      <ScrollView style={styles.scrollView}>
-        {filteredStocks.map((stock) => (
-          <View style={styles.card}>
-            <TouchableOpacity onPress={() => handlePress(stock.name)}>
-              <Text style={{ fontFamily: 'Lato_700Bold' }}>{stock.name}</Text>
-            </TouchableOpacity>
-          </View>
         ))}
       </ScrollView>
 
