@@ -146,59 +146,6 @@ export default function BrowseView() {
           </View>
         </View>
 
-
-        {/* <View style={styles.cardWrapper}>
-          <Card onPress={() => navigation.navigate('BrowseCategoryView', { category: 'Games' })}>
-            <Card.Content>
-              <Text variant="titleLarge" style={{ fontFamily: 'Lato_700Bold' }}>Games</Text>
-            </Card.Content>
-            <View style={styles.avatarRow}>
-              <Avatar.Image size={100} source={require('../assets/browse/minecraft.png')} />
-              <Avatar.Image size={100} source={require('../assets/browse/nintendo.png')} />
-              <Avatar.Image size={100} source={require('../assets/browse/roblox.jpeg')} />
-            </View>
-          </Card>
-        </View>
-
-        <View style={styles.cardWrapper}>
-          <Card onPress={() => navigation.navigate('BrowseCategoryView', { category: 'Entertainment' })}>
-            <Card.Content>
-              <Text variant="titleLarge" style={{ fontFamily: 'Lato_700Bold' }}>Entertainment</Text>
-            </Card.Content>
-            <View style={styles.avatarRow}>
-              <Avatar.Image size={100} source={require('../assets/browse/disney.jpeg')} />
-              <Avatar.Image size={100} source={require('../assets/browse/netflix.png')} />
-              <Avatar.Image size={100} source={require('../assets/browse/youtube.jpg')} />
-            </View>
-          </Card>
-        </View>
-        
-        <View style={styles.cardWrapper}>
-          <Card onPress={() => navigation.navigate('BrowseCategoryView', { category: 'Social Media' })}>
-            <Card.Content>
-              <Text variant="titleLarge" style={{ fontFamily: 'Lato_700Bold' }}>Social Media</Text>
-            </Card.Content>
-            <View style={styles.avatarRow}>
-              <Avatar.Image size={100} source={require('../assets/browse/meta.jpeg')} />
-              <Avatar.Image size={100} source={require('../assets/browse/pinterest.png')} />
-              <Avatar.Image size={100} source={require('../assets/browse/snap.jpeg')} />
-            </View>
-          </Card>
-        </View>
-
-        <View style={styles.cardWrapper}>
-          <Card onPress={() => navigation.navigate('BrowseCategoryView', { category: 'Food' })}>
-            <Card.Content>
-              <Text variant="titleLarge" style={{ fontFamily: 'Lato_700Bold' }}>Food</Text>
-            </Card.Content>
-            <View style={styles.avatarRow}>
-              <Avatar.Image size={100} source={require('../assets/browse/sanrio.jpg')} />
-              <Avatar.Image size={100} source={require('../assets/browse/mattel.jpeg')} />
-              <Avatar.Image size={100} source={require('../assets/browse/buildabear.jpg')} />
-            </View>
-          </Card>
-        </View> */}
-
       </ScrollView>
     </SafeAreaView>
   );

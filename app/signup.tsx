@@ -7,6 +7,8 @@ export default function SignUpScreen() {
   const { isLoaded, signUp, setActive } = useSignUp();
   const router = useRouter();
 
+  const [firstName, setFirstName] = React.useState('');
+  const [lastName, setLastName] = React.useState('');
   const [emailAddress, setEmailAddress] = React.useState('');
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -17,7 +19,7 @@ export default function SignUpScreen() {
     if (!isLoaded) return;
 
     try {
-      await signUp.create({ emailAddress, username, password });
+      await signUp.create({ firstName, lastName, emailAddress, username, password });
       await signUp.prepareEmailAddressVerification({ strategy: 'email_code' });
       setPendingVerification(true);
     } catch (err) {
@@ -49,6 +51,18 @@ export default function SignUpScreen() {
         <>
           <Text style={styles.title}>Welcome</Text>
           <Text style={styles.subtitle}>Create an account to invest!</Text>
+            <TextInput
+            autoCapitalize="none"
+            value={firstName}
+            placeholder="First Name"
+            onChangeText={setFirstName}
+            style={styles.input}/>
+            <TextInput
+            autoCapitalize="none"
+            value={lastName}
+            placeholder="Last Name"
+            onChangeText={setLastName}
+            style={styles.input}/>
           <TextInput
             autoCapitalize="none"
             value={emailAddress}
