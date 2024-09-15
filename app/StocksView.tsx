@@ -1,39 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, View, Text, ScrollView, TouchableOpacity, StyleSheet, Button } from 'react-native';
-import { useNavigation, NavigationProp } from '@react-navigation/native';
-
 type RootStackParamList = {
   StockDetailView: { stockName: string; stockPrice: number; sharesOwned: number };
 };
-import LottieView from 'lottie-react-native';
-import {
-  LineChart,
-  BarChart,
-  PieChart,
-  ProgressChart,
-  ContributionGraph,
-  StackedBarChart
-} from "react-native-chart-kit";
-import { Dimensions } from "react-native";
 // const navigation = useNavigation<NavigationProp<RootStackParamList>>();;
-
+import { SafeAreaView, View, Text, ScrollView, TouchableOpacity, StyleSheet, Modal, Button } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import LottieView from 'lottie-react-native';
+import * as Progress from 'react-native-progress';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function StocksView() {
   const navigation = useNavigation();
-  const [summary, setSummary] = useState(''); // State to hold the summary
-  const [loading, setLoading] = useState(true); // Loading state
+  const [summary, setSummary] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false); // State to control modal visibility
+  const [contractDismissed, setContractDismissed] = useState(false); // State to track contract dismissal
+  const [contractInfo, setContractInfo] = useState(''); // State for contract details
 
+  // Fetch summary (mock)
   const fetchSummary = async () => {
     try {
       const response = await fetch('https://rachllee--news-summary-app-serve-fastapi-app.modal.run/generate-summary', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer hackmit', 
+          'Authorization': 'Bearer hackmit',
         },
         body: JSON.stringify({ query: 'stock market' }),
       });
-      
       const data = await response.json();
       setSummary(data.summary);
     } catch (error) {
@@ -44,8 +38,14 @@ export default function StocksView() {
     }
   };
 
+  // Load contract dismissal state from AsyncStorage
   useEffect(() => {
-    fetchSummary(); // Fetch the summary when the component mounts
+    const loadContractState = async () => {
+      const isDismissed = await AsyncStorage.getItem('contractDismissed');
+      setContractDismissed(isDismissed === 'true');
+    };
+    loadContractState();
+    fetchSummary(); // Fetch summary once on load
   }, []);
 
   const navigateToDetailView = (stockName) => {
@@ -53,6 +53,28 @@ export default function StocksView() {
     if (stock) {
       navigation.navigate('StockDetailView', { stockName: stock.name, stockPrice: stock.price, sharesOwned: stock.shares });
     }
+  };
+
+  const openBond = () => {
+    setContractInfo('Not so fast... you agreed to wait 1 week for 20 gems!');
+    setModalVisible(true);
+  };
+
+  const closeBond = () => {
+    setModalVisible(false);
+  };
+
+  // Open the contract details and set modal visible
+  const openContract = () => {
+    setContractInfo('You agreed to sell 10 apples for 1000 gems. Today, apples are worth 800 gems. You earned 1000 - 800 = 200 gems!');
+    setModalVisible(true);
+  };
+
+  // Close contract and store dismissal state in AsyncStorage
+  const closeContract = async () => {
+    await AsyncStorage.setItem('contractDismissed', 'true'); // Store dismissal flag
+    setContractDismissed(true); // Set local state to hide contract
+    setModalVisible(false);
   };
 
   const stocks = [
@@ -65,18 +87,13 @@ export default function StocksView() {
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
         <LottieView
-          source={require('../stockview-animation.json')} // Update with the correct path
+          source={require('../stockview-animation.json')}
           autoPlay
           loop
           style={styles.lottieBackground}
         />
 
-        {/* <View style={styles.stockChartContainer}>
-          <StockChart />
-        </View> */}
-
         <View style={styles.overlay}>
-
           <View style={styles.dashboardBox}>
             <Text style={styles.totalWinningsText}>Total Gems</Text>
             <Text style={styles.winningsAmount}>💎 5550</Text>
@@ -116,7 +133,41 @@ export default function StocksView() {
               </TouchableOpacity>
             ))}
           </ScrollView>
+
+          {/* Bond Box */}
+          <TouchableOpacity style={styles.contractBox} onPress={openBond}>
+            <Text style={styles.contractTitle}>Bond: Wait 1 week for 20 💎</Text>
+            <Progress.Bar progress={0.4} width={100} color={'#4CAF50'} />
+            <Text style={styles.contractStatus}>Status: Expired</Text>
+          </TouchableOpacity>
+
+          {/* Contract Box (only shown if not dismissed) */}
+          {!contractDismissed && (
+            <TouchableOpacity style={styles.contractBox} onPress={openContract}>
+              <Text style={styles.contractTitle}>Contract: Sell 10 🍎</Text>
+              <Progress.Bar progress={1} width={100} color={'#4CAF50'} />
+              <Text style={styles.contractStatus}>Status: Expired</Text>
+            </TouchableOpacity>
+          )}
         </View>
+
+        {/* Modal for Contract */}
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => setModalVisible(false)}
+        >
+          <View style={styles.modalContainer}>
+            <View style={styles.modalContent}>
+              <Text style={styles.modalTitle}>Contract Details</Text>
+              <Text style={styles.modalText}>{contractInfo}</Text>
+              <TouchableOpacity style={styles.modalButton} onPress={closeContract}>
+                <Text style={styles.modalButtonText}>Close</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
       </View>
     </SafeAreaView>
   );
@@ -130,14 +181,6 @@ const styles = StyleSheet.create({
   lottieBackground: {
     ...StyleSheet.absoluteFillObject,
     zIndex: -1,
-  },
-  stockChartContainer: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    height: 220, // Adjust height as needed
-    zIndex: 2, // Ensure StockChart is above the Lottie animation and other content
   },
   overlay: {
     flex: 1,
@@ -227,5 +270,57 @@ const styles = StyleSheet.create({
     fontFamily: 'Lato_700Bold',
     fontSize: 18,
     color: '#6200ee',
+  },
+  contractBox: {
+    backgroundColor: '#f8f8f8',
+    borderRadius: 10,
+    padding: 20,
+    marginBottom: 20,
+    alignItems: 'center',
+    width: '100%',
+  },
+  contractTitle: {
+    fontSize: 18,
+    fontFamily: 'Lato_700Bold',
+    marginBottom: 10,
+  },
+  contractStatus: {
+    fontSize: 14,
+    color: '#999',
+    marginTop: 5,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 10,
+    width: '80%',
+    alignItems: 'center',
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontFamily: 'Lato_700Bold',
+    marginBottom: 10,
+  },
+  modalText: {
+    fontSize: 16,
+    fontFamily: 'Lato_400Regular',
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  modalButton: {
+    backgroundColor: '#6200ee',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+  },
+  modalButtonText: {
+    color: '#fff',
+    fontFamily: 'Lato_700Bold',
   },
 });

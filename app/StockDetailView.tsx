@@ -107,7 +107,7 @@ const StockDetailView: React.FC<StockDetailViewProps> = ({ route, navigation }) 
                 onPress={() => navigation.navigate('BuyView', { stock: stockName, stockPrice: stockPrice, conversionRate: 0.1 })}
                 style={styles.button}
             >
-                Buy
+                BUY
             </Button>
 
             <Button
@@ -115,7 +115,7 @@ const StockDetailView: React.FC<StockDetailViewProps> = ({ route, navigation }) 
                 onPress={() => navigation.navigate('SellView', { stock: stockName, stockPrice: stockPrice, conversionRate: 0.1 })}
                 style={styles.button}
             >
-                Sell
+                SELL
             </Button>
         </SafeAreaView>
     );
@@ -130,6 +130,7 @@ const styles = StyleSheet.create({
         alignItems: 'center', // Centers content horizontally
     },
     title: {
+        fontFamily: 'Lato_700Bold',
         fontSize: 26,
         fontWeight: 'bold',
         textAlign: 'center',
@@ -173,10 +174,12 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     infoLabel: {
+        fontFamily: 'Lato_400Regular',
         fontSize: 16,
         color: '#333',
     },
     infoValue: {
+        fontFamily: 'Lato_700Bold',
         fontSize: 16,
         fontWeight: 'bold',
         color: '#6200ee',
