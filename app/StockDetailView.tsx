@@ -98,7 +98,7 @@ const StockDetailView: React.FC<StockDetailViewProps> = ({ route, navigation }) 
                 </View>
                 <View style={styles.infoRow}>
                     <Text style={styles.infoLabel}>Price per Share: </Text>
-                    <Text style={styles.infoValue}>${stockPrice || lastPrice}</Text>
+                    <Text style={styles.infoValue}>{stockPrice || lastPrice}</Text>
                 </View>
                 <View style={styles.infoRow}>
                     <Text style={styles.infoLabel}>Total Price:</Text>
