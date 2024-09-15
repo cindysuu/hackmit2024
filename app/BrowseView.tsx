@@ -63,8 +63,6 @@ export default function BrowseView() {
   // );
   
 
-  console.log('searchQuery', searchQuery);
-  console.log('filtered stocks', filteredStocks);
 
   const handlePress = (stockName) => {
     navigation.navigate('StockDetailView', { stockName });
@@ -90,112 +88,112 @@ export default function BrowseView() {
 
       <ScrollView>
         <View style={styles.card}>
-          <Text variant="titleLarge" style={{ fontFamily: 'Lato_700Bold', color: '#6200ee' }}>Food and Drink</Text>
+          <Text variant="titleLarge" style={{ fontFamily: 'Lato_700Bold', color: '#6200ee', fontSize: 25}}>Food and Drink</Text>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             <View style={styles.avatarRow}>
               <TouchableOpacity onPress={() => handlePress('Mcdonalds')}>
-                <Avatar.Image size={100} source={require('../assets/browse/mcdonalds.jpg')} style={styles.avatar} />
+                <Avatar.Image size={150} source={require('../assets/browse/mcdonalds.jpg')} style={styles.avatar} />
               </TouchableOpacity>
               <TouchableOpacity onPress={() => handlePress('Hershey')}>
-                <Avatar.Image size={100} source={require('../assets/browse/hershey.png')} style={styles.avatar} />
+                <Avatar.Image size={150} source={require('../assets/browse/hershey.png')} style={styles.avatar} />
               </TouchableOpacity>
               <TouchableOpacity onPress={() => handlePress('Krispy Kreme')}>
-                <Avatar.Image size={100} source={require('../assets/browse/krispykreme.jpg')} style={styles.avatar} />
+                <Avatar.Image size={150} source={require('../assets/browse/krispykreme.jpg')} style={styles.avatar} />
               </TouchableOpacity>
               <TouchableOpacity onPress={() => handlePress('Starbucks')}>
-                <Avatar.Image size={100} source={require('../assets/browse/starbucks.png')} style={styles.avatar} />
+                <Avatar.Image size={150} source={require('../assets/browse/starbucks.png')} style={styles.avatar} />
               </TouchableOpacity>
               <TouchableOpacity onPress={() => handlePress('Chipotle')}>
-                <Avatar.Image size={100} source={require('../assets/browse/chipotle.jpeg')} style={styles.avatar} />
+                <Avatar.Image size={150} source={require('../assets/browse/chipotle.jpeg')} style={styles.avatar} />
               </TouchableOpacity>
               <TouchableOpacity onPress={() => handlePress('Nestle')}>
-                <Avatar.Image size={100} source={require('../assets/browse/nestle.jpg')} style={styles.avatar} />
+                <Avatar.Image size={150} source={require('../assets/browse/nestle.jpg')} style={styles.avatar} />
               </TouchableOpacity>
             </View>
           </ScrollView>
         </View>
 
         <View style={styles.card}>
-          <Text variant="titleLarge" style={{ fontFamily: 'Lato_700Bold', color: '#6200ee' }}>Entertainment</Text>
+          <Text variant="titleLarge" style={{ fontFamily: 'Lato_700Bold', color: '#6200ee', fontSize: 25}}>Entertainment</Text>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
           <View style={styles.avatarRow}>
             <TouchableOpacity onPress={() => handlePress('Disney')}>
-              <Avatar.Image size={100} source={require('../assets/browse/disney.jpeg')} style={styles.avatar} />
+              <Avatar.Image size={150} source={require('../assets/browse/disney.jpeg')} style={styles.avatar} />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => handlePress('Netflix')}>
-              <Avatar.Image size={100} source={require('../assets/browse/netflix.png')} style={styles.avatar} />
+              <Avatar.Image size={150} source={require('../assets/browse/netflix.png')} style={styles.avatar} />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => handlePress('Paramount')}>
-              <Avatar.Image size={100} source={require('../assets/browse/paramount.jpg')} style={styles.avatar} />
+              <Avatar.Image size={150} source={require('../assets/browse/paramount.jpg')} style={styles.avatar} />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => handlePress('Youtube')}>
-              <Avatar.Image size={100} source={require('../assets/browse/youtube.jpg')} style={styles.avatar} />
+              <Avatar.Image size={150} source={require('../assets/browse/youtube.jpg')} style={styles.avatar} />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => handlePress('AMC')}>
-              <Avatar.Image size={100} source={require('../assets/browse/amc.jpeg')} style={styles.avatar} />
+              <Avatar.Image size={150} source={require('../assets/browse/amc.jpeg')} style={styles.avatar} />
             </TouchableOpacity>
           </View>
           </ScrollView>
         </View>
 
         <View style={styles.card}>
-            <Text variant="titleLarge" style={{ fontFamily: 'Lato_700Bold', color: '#6200ee' }}>Games</Text>
+            <Text variant="titleLarge" style={{ fontFamily: 'Lato_700Bold', color: '#6200ee', fontSize: 25}}>Games</Text>
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
               <View style={styles.avatarRow}>
                 <TouchableOpacity onPress={() => handlePress('Minecraft')}>
-                  <Avatar.Image size={100} source={require('../assets/browse/minecraft.png')} style={styles.avatar} />
+                  <Avatar.Image size={150} source={require('../assets/browse/minecraft.png')} style={styles.avatar} />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => handlePress('Nintendo')}>
-                  <Avatar.Image size={100} source={require('../assets/browse/nintendo.png')} style={styles.avatar} />
+                  <Avatar.Image size={150} source={require('../assets/browse/nintendo.png')} style={styles.avatar} />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => handlePress('Roblox')}>
-                  <Avatar.Image size={100} source={require('../assets/browse/roblox.jpeg')} style={styles.avatar} />
+                  <Avatar.Image size={150} source={require('../assets/browse/roblox.jpeg')} style={styles.avatar} />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => handlePress('Sony')}>
-                  <Avatar.Image size={100} source={require('../assets/browse/sony.jpeg')} style={styles.avatar} />
+                  <Avatar.Image size={150} source={require('../assets/browse/sony.jpeg')} style={styles.avatar} />
                 </TouchableOpacity>
               </View>
             </ScrollView>
         </View>
 
         <View style={styles.card}>
-          <Text variant="titleLarge" style={{ fontFamily: 'Lato_700Bold', color: '#6200ee' }}>Social Media</Text>
+          <Text variant="titleLarge" style={{ fontFamily: 'Lato_700Bold', color: '#6200ee', fontSize: 25}}>Social Media</Text>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             <View style={styles.avatarRow}>
               <TouchableOpacity onPress={() => handlePress('Meta')}>
-                <Avatar.Image size={100} source={require('../assets/browse/meta.jpeg')} style={styles.avatar} />
+                <Avatar.Image size={150} source={require('../assets/browse/meta.jpeg')} style={styles.avatar} />
               </TouchableOpacity>
               <TouchableOpacity onPress={() => handlePress('Pinterest')}>
-                <Avatar.Image size={100} source={require('../assets/browse/pinterest.png')} style={styles.avatar} />
+                <Avatar.Image size={150} source={require('../assets/browse/pinterest.png')} style={styles.avatar} />
               </TouchableOpacity>
               <TouchableOpacity onPress={() => handlePress('Snapchat')}>
-                <Avatar.Image size={100} source={require('../assets/browse/snap.jpeg')} style={styles.avatar} />
+                <Avatar.Image size={150} source={require('../assets/browse/snap.jpeg')} style={styles.avatar} />
               </TouchableOpacity>
               <TouchableOpacity onPress={() => handlePress('Reddit')}>
-                <Avatar.Image size={100} source={require('../assets/browse/reddit.jpg')} style={styles.avatar} />
+                <Avatar.Image size={150} source={require('../assets/browse/reddit.jpg')} style={styles.avatar} />
               </TouchableOpacity>
               <TouchableOpacity onPress={() => handlePress('Spotify')}>
-                <Avatar.Image size={100} source={require('../assets/browse/spotify.jpeg')} style={styles.avatar} />
+                <Avatar.Image size={150} source={require('../assets/browse/spotify.jpeg')} style={styles.avatar} />
               </TouchableOpacity>
             </View>
           </ScrollView>
         </View>
 
         <View style={styles.card}>
-          <Text variant="titleLarge" style={{ fontFamily: 'Lato_700Bold', color: '#6200ee' }}>Toys</Text>
+          <Text variant="titleLarge" style={{ fontFamily: 'Lato_700Bold', color: '#6200ee', fontSize: 25}}>Toys</Text>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             <View style={styles.avatarRow}>
               <TouchableOpacity onPress={() => handlePress('Sanrio')}>
-                <Avatar.Image size={100} source={require('../assets/browse/sanrio.jpg')} style={styles.avatar} />
+                <Avatar.Image size={150} source={require('../assets/browse/sanrio.jpg')} style={styles.avatar} />
               </TouchableOpacity>
               <TouchableOpacity onPress={() => handlePress('Mattel')}>
-                <Avatar.Image size={100} source={require('../assets/browse/mattel.jpeg')} style={styles.avatar} />
+                <Avatar.Image size={150} source={require('../assets/browse/mattel.jpeg')} style={styles.avatar} />
               </TouchableOpacity>
               <TouchableOpacity onPress={() => handlePress('Build-A-Bear')}>
-                <Avatar.Image size={100} source={require('../assets/browse/buildabear.jpg')} style={styles.avatar} />
+                <Avatar.Image size={150} source={require('../assets/browse/buildabear.jpg')} style={styles.avatar} />
               </TouchableOpacity>
               <TouchableOpacity onPress={() => handlePress('Hasbro')}>
-                <Avatar.Image size={100} source={require('../assets/browse/hasbro.jpg')} style={styles.avatar} />
+                <Avatar.Image size={150} source={require('../assets/browse/hasbro.jpg')} style={styles.avatar} />
               </TouchableOpacity>
             </View>
           </ScrollView>
