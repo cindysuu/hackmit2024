@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView, View, Text, ScrollView, TouchableOpacity, StyleSheet, Button } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+
+type RootStackParamList = {
+  StockDetailView: { stockName: string; stockPrice: number; sharesOwned: number };
+};
 import LottieView from 'lottie-react-native';
 import {
   LineChart,
@@ -11,7 +15,7 @@ import {
   StackedBarChart
 } from "react-native-chart-kit";
 import { Dimensions } from "react-native";
-import StockChart from './StockChart';
+// const navigation = useNavigation<NavigationProp<RootStackParamList>>();;
 
 
 export default function StocksView() {
@@ -45,13 +49,16 @@ export default function StocksView() {
   }, []);
 
   const navigateToDetailView = (stockName) => {
-    navigation.navigate('StockDetailView', { stockName });
+    const stock = stocks.find(s => s.name === stockName);
+    if (stock) {
+      navigation.navigate('StockDetailView', { stockName: stock.name, stockPrice: stock.price, sharesOwned: stock.shares });
+    }
   };
 
   const stocks = [
-    { name: 'Disney', price: '$100' },
-    { name: 'Hello Kitty', price: '$200' },
-    { name: 'Nintendo', price: '$50' },
+    { name: 'Disney', price: 100, shares: 10 },
+    { name: 'Hello Kitty', price: 200, shares: 5 },
+    { name: 'Nintendo', price: 50, shares: 30 },
   ];
 
   return (
@@ -72,7 +79,7 @@ export default function StocksView() {
 
           <View style={styles.dashboardBox}>
             <Text style={styles.totalWinningsText}>Total Gems</Text>
-            <Text style={styles.winningsAmount}>💎 5000</Text>
+            <Text style={styles.winningsAmount}>💎 5550</Text>
           </View>
 
           <View style={styles.summaryContainer}>
@@ -93,8 +100,15 @@ export default function StocksView() {
                   <Text style={styles.stockName}>{stock.name}</Text>
                 </View>
                 <View style={styles.plot}>
-                  <Text>🔼</Text>
-                  {/* <Text>📊 Fake Plot</Text> */}
+                  <View style={styles.plot}>
+                    {stock.name === 'Disney' ? (
+                      <Text>🔼</Text>
+                    ) : stock.name === 'Hello Kitty' ? (
+                      <Text>⏫</Text>
+                    ) : (
+                      <Text>🔽</Text>
+                    )}
+                  </View>
                 </View>
                 <View style={styles.stockPriceContainer}>
                   <Text style={styles.stockPrice}>{stock.price}</Text>

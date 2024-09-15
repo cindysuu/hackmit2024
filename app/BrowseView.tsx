@@ -17,34 +17,34 @@ export default function BrowseView() {
   const navigation = useNavigation();
 
   const stockData = [
-    { name: 'Minecraft', category: 'Games', image: require('../assets/browse/minecraft.png') },
-    { name: 'Nintendo', category: 'Games', image: require('../assets/browse/nintendo.png') },
-    { name: 'Roblox', category: 'Games', image: require('../assets/browse/roblox.jpeg') },
-    { name: 'Sony', category: 'Games', image: require('../assets/browse/sony.jpeg') },  // New addition
+    { name: 'Minecraft', category: 'Games', image: require('../assets/browse/minecraft.png'), index: 0 },
+    { name: 'Nintendo', category: 'Games', image: require('../assets/browse/nintendo.png'), index: 1 },
+    { name: 'Roblox', category: 'Games', image: require('../assets/browse/roblox.jpeg'), index: 2 },
+    { name: 'Sony', category: 'Games', image: require('../assets/browse/sony.jpeg'), index: 3 },  // New addition
   
-    { name: 'Disney', category: 'Entertainment', image: require('../assets/browse/disney.jpeg') },
-    { name: 'Netflix', category: 'Entertainment', image: require('../assets/browse/netflix.png') },
-    { name: 'Youtube', category: 'Entertainment', image: require('../assets/browse/youtube.jpg') },
-    { name: 'Paramount', category: 'Entertainment', image: require('../assets/browse/paramount.jpg') },  // New addition
-    { name: 'AMC', category: 'Entertainment', image: require('../assets/browse/amc.jpeg') },  // New addition
+    { name: 'Disney', category: 'Entertainment', image: require('../assets/browse/disney.jpeg'), index: 4 },
+    { name: 'Netflix', category: 'Entertainment', image: require('../assets/browse/netflix.png'), index: 5 },
+    { name: 'Youtube', category: 'Entertainment', image: require('../assets/browse/youtube.jpg'), index: 6 },
+    { name: 'Paramount', category: 'Entertainment', image: require('../assets/browse/paramount.jpg'), index: 7 },  // New addition
+    { name: 'AMC', category: 'Entertainment', image: require('../assets/browse/amc.jpeg'), index: 8 },  // New addition
   
-    { name: 'Meta', category: 'Social Media', image: require('../assets/browse/meta.jpeg') },
-    { name: 'Pinterest', category: 'Social Media', image: require('../assets/browse/pinterest.png') },
-    { name: 'Snapchat', category: 'Social Media', image: require('../assets/browse/snap.jpeg') },
-    { name: 'Reddit', category: 'Social Media', image: require('../assets/browse/reddit.jpg') },  // New addition
-    { name: 'Spotify', category: 'Social Media', image: require('../assets/browse/spotify.jpeg') },  // New addition
+    { name: 'Meta', category: 'Social Media', image: require('../assets/browse/meta.jpeg'), index: 9 },
+    { name: 'Pinterest', category: 'Social Media', image: require('../assets/browse/pinterest.png'), index: 10 },
+    { name: 'Snapchat', category: 'Social Media', image: require('../assets/browse/snap.jpeg'), index: 11 },
+    { name: 'Reddit', category: 'Social Media', image: require('../assets/browse/reddit.jpg'), index: 12 },  // New addition
+    { name: 'Spotify', category: 'Social Media', image: require('../assets/browse/spotify.jpeg'), index: 13 },  // New addition
   
-    { name: 'Mcdonalds', category: 'Food', image: require('../assets/browse/mcdonalds.jpg') },
-    { name: 'Hershey', category: 'Food', image: require('../assets/browse/hershey.png') },
-    { name: 'Krispy Kreme', category: 'Food', image: require('../assets/browse/krispykreme.jpg') },
-    { name: 'Starbucks', category: 'Food', image: require('../assets/browse/starbucks.png') },  // New addition
-    { name: 'Chipotle', category: 'Food', image: require('../assets/browse/chipotle.jpeg') },  // New addition
-    { name: 'Nestle', category: 'Food', image: require('../assets/browse/nestle.jpg') },  // New addition
+    { name: 'Mcdonalds', category: 'Food', image: require('../assets/browse/mcdonalds.jpg'), index: 14 },
+    { name: 'Hershey', category: 'Food', image: require('../assets/browse/hershey.png'), index: 15 },
+    { name: 'Krispy Kreme', category: 'Food', image: require('../assets/browse/krispykreme.jpg'), index: 16 },
+    { name: 'Starbucks', category: 'Food', image: require('../assets/browse/starbucks.png'), index: 17 },  // New addition
+    { name: 'Chipotle', category: 'Food', image: require('../assets/browse/chipotle.jpeg'), index: 18 },  // New addition
+    { name: 'Nestle', category: 'Food', image: require('../assets/browse/nestle.jpg'), index: 19 },  // New addition
   
-    { name: 'Sanrio', category: 'Toys', image: require('../assets/browse/sanrio.jpg') },
-    { name: 'Mattel', category: 'Toys', image: require('../assets/browse/mattel.jpeg') },
-    { name: 'Build-A-Bear', category: 'Toys', image: require('../assets/browse/buildabear.jpg') },
-    { name: 'Hasbro', category: 'Toys', image: require('../assets/browse/hasbro.jpg') },  // New addition
+    { name: 'Sanrio', category: 'Toys', image: require('../assets/browse/sanrio.jpg'), index: 20 },
+    { name: 'Mattel', category: 'Toys', image: require('../assets/browse/mattel.jpeg'), index: 21 },
+    { name: 'Build-A-Bear', category: 'Toys', image: require('../assets/browse/buildabear.jpg'), index: 22 },
+    { name: 'Hasbro', category: 'Toys', image: require('../assets/browse/hasbro.jpg'), index: 23 },  // New addition
   ];  
 
   // const filteredStocks = stockData.filter(stock =>
@@ -57,7 +57,14 @@ export default function BrowseView() {
     threshold: 0.3,  // Lower means more strict matching
   };
   const fuse = new Fuse(stockData, options);
-  const filteredStocks = searchQuery !== '' ? fuse.search(searchQuery).map(result => result.item) : [];
+  // const filteredStocks = searchQuery !== '' ? fuse.search(searchQuery).map(result => result.item) : [];
+  const filteredStocks = stockData.filter(stock =>
+    stock.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+  
+
+  console.log('searchQuery', searchQuery);
+  console.log('filtered stocks', filteredStocks);
 
   const handlePress = (stockName) => {
     navigation.navigate('StockDetailView', { stockName });

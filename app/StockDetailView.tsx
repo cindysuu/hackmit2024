@@ -1,11 +1,14 @@
 import React from 'react';
 import { SafeAreaView, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
+import StockChart from '../components/LineChart';
 
 interface StockDetailViewProps {
     route: {
         params: {
             stockName: string;
+            stockPrice: number;
+            sharesOwned: number;
         };
     };
     navigation: any;
@@ -17,19 +20,65 @@ const handleSellPress = (navigation: any) => {
 
 const StockDetailView: React.FC<StockDetailViewProps> = ({ route, navigation }) => {
     const { stockName } = route.params;
+    const { stockPrice } = route.params;
+    const { sharesOwned } = route.params;
+    const totalPrice = sharesOwned * stockPrice;
 
-    // Fake data for demonstration
-    const sharesOwned = 10;
-    const pricePerShare = 150;
-    const totalPrice = sharesOwned * pricePerShare;
+
+    let fullData = [];
+
+    if (stockName === 'Disney') {
+        fullData = [
+            { price: 30.22, timestamp: new Date('2023-09-26T00:00:00') },
+            { price: 28.59, timestamp: new Date('2023-09-25T00:00:00') },
+            { price: 21.49, timestamp: new Date('2023-09-22T00:00:00') },
+            { price: 30.00, timestamp: new Date('2023-09-21T00:00:00') },
+            { price: 40.40, timestamp: new Date('2023-09-20T00:00:00') },
+            { price: 36.40, timestamp: new Date('2023-09-19T00:00:00') },
+            { price: 50.00, timestamp: new Date('2023-09-18T00:00:00') },
+            { price: 45.07, timestamp: new Date('2023-09-15T00:00:00') },
+            { price: 75.00, timestamp: new Date('2023-09-14T00:00:00') },
+            { price: 100.00, timestamp: new Date('2023-09-13T00:00:00') },
+        ];
+    } else if (stockName === 'Hello Kitty') {
+        fullData = [
+            { price: 100.22, timestamp: new Date('2023-09-26T00:00:00') },
+            { price: 80.59, timestamp: new Date('2023-09-25T00:00:00') },
+            { price: 60.49, timestamp: new Date('2023-09-22T00:00:00') },
+            { price: 80.00, timestamp: new Date('2023-09-21T00:00:00') },
+            { price: 70.40, timestamp: new Date('2023-09-20T00:00:00') },
+            { price: 80.40, timestamp: new Date('2023-09-19T00:00:00') },
+            { price: 100.00, timestamp: new Date('2023-09-18T00:00:00') },
+            { price: 120.07, timestamp: new Date('2023-09-15T00:00:00') },
+            { price: 180.00, timestamp: new Date('2023-09-14T00:00:00') },
+            { price: 200.00, timestamp: new Date('2023-09-13T00:00:00') },
+        ];
+    } else {
+        fullData = [
+            { price: 62, timestamp: new Date('2023-09-26T00:00:00') },
+            { price: 65, timestamp: new Date('2023-09-25T00:00:00') },
+            { price: 70, timestamp: new Date('2023-09-22T00:00:00') },
+            { price: 72, timestamp: new Date('2023-09-21T00:00:00') },
+            { price: 70, timestamp: new Date('2023-09-20T00:00:00') },
+            { price: 75, timestamp: new Date('2023-09-19T00:00:00') },
+            { price: 70, timestamp: new Date('2023-09-18T00:00:00') },
+            { price: 65, timestamp: new Date('2023-09-15T00:00:00') },
+            { price: 55, timestamp: new Date('2023-09-14T00:00:00') },
+            { price: 50.00, timestamp: new Date('2023-09-13T00:00:00') },
+        ];
+    }
 
     return (
         <SafeAreaView style={styles.container}>
             <Text style={styles.title}>{stockName}</Text>
 
             {/* Plot Section */}
-            <View style={styles.plotContainer}>
+            {/* <View style={styles.plotContainer}>
                 <Text style={styles.plotText}>📊 Stock Trend for {stockName}</Text>
+            </View> */}
+
+            <View style={styles.plotContainer}>
+                <StockChart data={fullData} />
             </View>
 
             {/* Stock Info Section */}
@@ -39,8 +88,8 @@ const StockDetailView: React.FC<StockDetailViewProps> = ({ route, navigation }) 
                     <Text style={styles.infoValue}>{sharesOwned}</Text>
                 </View>
                 <View style={styles.infoRow}>
-                    <Text style={styles.infoLabel}>Price per Share:</Text>
-                    <Text style={styles.infoValue}>${pricePerShare}</Text>
+                    <Text style={styles.infoLabel}>Price per Share: </Text>
+                    <Text style={styles.infoValue}>${stockPrice}</Text>
                 </View>
                 <View style={styles.infoRow}>
                     <Text style={styles.infoLabel}>Total Price:</Text>
@@ -55,7 +104,7 @@ const StockDetailView: React.FC<StockDetailViewProps> = ({ route, navigation }) 
 
             <Button
                 mode="contained"
-                onPress={() => navigation.navigate('BuyView', { stock: stockName })}
+                onPress={() => navigation.navigate('BuyView', { stock: stockName, stockPrice: stockPrice, conversionRate: 0.1 })}
                 style={styles.button}
             >
                 Buy
@@ -63,7 +112,7 @@ const StockDetailView: React.FC<StockDetailViewProps> = ({ route, navigation }) 
 
             <Button
                 mode="contained"
-                onPress={() => navigation.navigate('SellView', { stock: stockName })}
+                onPress={() => navigation.navigate('SellView', { stock: stockName, stockPrice: stockPrice, conversionRate: 0.1 })}
                 style={styles.button}
             >
                 Sell
@@ -77,6 +126,8 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 20,
         backgroundColor: '#fff',
+        justifyContent: 'center', // Centers content vertically
+        alignItems: 'center', // Centers content horizontally
     },
     title: {
         fontSize: 26,
