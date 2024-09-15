@@ -35,8 +35,8 @@ export default function BuyView({ route }) {
             <Text style={styles.stockTitle}>
                 Buying <Text style={{ fontWeight: 'bold', color: '#6200ee' }}>{stock}</Text>
             </Text>
-            <Text style={styles.stockSubTitle}>Price: ${stockPrice} USD</Text>
 
+            <Text style={styles.stockSubTitle}>Price: ${stockPrice} USD</Text>
             <Text style={[styles.stockSubTitle, { color: '#6200ee' }]}>How many stocks?</Text>
             <TextInput
                 value={text}
