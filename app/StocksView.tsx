@@ -17,9 +17,9 @@ export default function StocksView() {
   const [contractDismissed, setContractDismissed] = useState(false);
   const [contractInfo, setContractInfo] = useState('');
   const [stocks, setStocks] = useState([
-    { name: 'Disney', price: '$100' },
-    { name: 'Hello Kitty', price: '$200' },
-    { name: 'Nintendo', price: '$50' },
+    { name: 'Disney', price: 100, sharesOwned: 10 },
+    { name: 'Hello Kitty', price: 200, sharesOwned: 5 },
+    { name: 'Nintendo', price: 50, sharesOwned: 30 },
   ]); // Use state to store stocks
   const [gems, setGems] = useState(5500);
 
@@ -55,7 +55,7 @@ export default function StocksView() {
   const navigateToDetailView = (stockName) => {
     const stock = stocks.find(s => s.name === stockName);
     if (stock) {
-      navigation.navigate('StockDetailView', { stockName: stock.name, stockPrice: stock.price, sharesOwned: stock.shares });
+      navigation.navigate('StockDetailView', { stockName: stock.name, stockPrice: stock.price, sharesOwned: stock.sharesOwned });
     }
   };
 
