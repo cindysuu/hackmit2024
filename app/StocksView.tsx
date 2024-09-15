@@ -1,12 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { SafeAreaView, View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import LottieView from 'lottie-react-native';
 
 export default function StocksView() {
   const navigation = useNavigation();
+  const [summary, setSummary] = useState(''); // State to hold the summary
+  const [loading, setLoading] = useState(true); // Loading state
 
-  const navigateToDetailView = (stockName: string) => {
+  const fetchSummary = async () => {
+    try {
+      const response = await fetch('https://rachllee--news-summary-app-serve-fastapi-app.modal.run/generate-summary', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer hackmit', 
+        },
+        body: JSON.stringify({ query: 'stock market' }),
+      });
+      
+      const data = await response.json();
+      setSummary(data.summary);
+    } catch (error) {
+      console.error('Error fetching summary:', error);
+      setSummary('Failed to fetch summary.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchSummary(); // Fetch the summary when the component mounts
+  }, []);
+
+  const navigateToDetailView = (stockName) => {
     navigation.navigate('StockDetailView', { stockName });
   };
 
@@ -34,7 +61,7 @@ export default function StocksView() {
           <View style={styles.summaryContainer}>
             <Text style={styles.summaryTitle}>Today's AI Stock Summary:</Text>
             <Text style={styles.summaryText}>
-              Today, stock prices for media/entertainment companies are particularly high. This means that your Disney stock is more valuable than usual. It might be a good day to sell some of your stock!
+              {loading ? 'Loading summary...' : summary}
             </Text>
           </View>
 
@@ -43,10 +70,7 @@ export default function StocksView() {
               <TouchableOpacity
                 key={index}
                 style={styles.row}
-                onPress={() => {
-                  console.log(`Navigating to details of ${stock.name}`);
-                  navigateToDetailView(stock.name);
-                }}
+                onPress={() => navigateToDetailView(stock.name)}
               >
                 <View style={styles.stockNameContainer}>
                   <Text style={styles.stockName}>{stock.name}</Text>
@@ -127,7 +151,7 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     flex: 1,
-    width: '100%', // Ensure the scroll view takes the full width
+    width: '100%',
   },
   row: {
     flexDirection: 'row',
@@ -144,7 +168,7 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   stockNameContainer: {
-    flex: 2, // Controls width of the stock name
+    flex: 2,
   },
   stockName: {
     fontFamily: 'Lato_700Bold',
