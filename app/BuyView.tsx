@@ -7,7 +7,8 @@ export default function BuyView({ route }) {
     const { stock } = route.params;
     const { stockPrice } = route.params;
     const { conversionRate } = route.params;
-    console.log(stockPrice);
+    console.log('price', stockPrice);
+    console.log('rate', conversionRate);
     const navigation = useNavigation();
     const [text, setText] = React.useState("");
     const gems = 5550;

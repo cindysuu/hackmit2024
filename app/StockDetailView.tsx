@@ -26,6 +26,8 @@ const StockDetailView: React.FC<StockDetailViewProps> = ({ route, navigation }) 
 
 
     let fullData = [];
+    let lastPrice = 0;
+    let stockPrice2 = 0;
 
     if (stockName === 'Disney') {
         fullData = [
@@ -53,7 +55,7 @@ const StockDetailView: React.FC<StockDetailViewProps> = ({ route, navigation }) 
             { price: 180.00, timestamp: new Date('2023-09-14T00:00:00') },
             { price: 200.00, timestamp: new Date('2023-09-13T00:00:00') },
         ];
-    } else {
+    } else if (stockName === 'Nintendo') {
         fullData = [
             { price: 62, timestamp: new Date('2023-09-26T00:00:00') },
             { price: 65, timestamp: new Date('2023-09-25T00:00:00') },
@@ -66,6 +68,13 @@ const StockDetailView: React.FC<StockDetailViewProps> = ({ route, navigation }) 
             { price: 55, timestamp: new Date('2023-09-14T00:00:00') },
             { price: 50.00, timestamp: new Date('2023-09-13T00:00:00') },
         ];
+    } else {
+        fullData = Array.from({ length: 10 }, (_, i) => ({
+            price: parseFloat((Math.random() * (200 - 20) + 20).toFixed(2)),
+            timestamp: new Date(new Date().setDate(new Date().getDate() - i)),
+        })).reverse();
+        lastPrice = fullData[fullData.length - 1].price;
+        stockPrice2 = lastPrice;
     }
 
     return (
@@ -85,15 +94,15 @@ const StockDetailView: React.FC<StockDetailViewProps> = ({ route, navigation }) 
             <View style={styles.stockInfoContainer}>
                 <View style={styles.infoRow}>
                     <Text style={styles.infoLabel}>Shares Owned:</Text>
-                    <Text style={styles.infoValue}>{sharesOwned}</Text>
+                    <Text style={styles.infoValue}>{sharesOwned || 0}</Text>
                 </View>
                 <View style={styles.infoRow}>
                     <Text style={styles.infoLabel}>Price per Share: </Text>
-                    <Text style={styles.infoValue}>${stockPrice}</Text>
+                    <Text style={styles.infoValue}>${stockPrice || lastPrice}</Text>
                 </View>
                 <View style={styles.infoRow}>
                     <Text style={styles.infoLabel}>Total Price:</Text>
-                    <Text style={styles.infoValue}>${totalPrice}</Text>
+                    <Text style={styles.infoValue}>${totalPrice || 0}</Text>
                 </View>
             </View>
 
@@ -104,7 +113,7 @@ const StockDetailView: React.FC<StockDetailViewProps> = ({ route, navigation }) 
 
             <Button
                 mode="contained"
-                onPress={() => navigation.navigate('BuyView', { stock: stockName, stockPrice: stockPrice, conversionRate: 0.1 })}
+                onPress={() => navigation.navigate('BuyView', { stock: stockName, stockPrice: stockPrice || stockPrice2, conversionRate: 0.1 })}
                 style={styles.button}
             >
                 BUY
@@ -112,7 +121,7 @@ const StockDetailView: React.FC<StockDetailViewProps> = ({ route, navigation }) 
 
             <Button
                 mode="contained"
-                onPress={() => navigation.navigate('SellView', { stock: stockName, stockPrice: stockPrice, conversionRate: 0.1 })}
+                onPress={() => navigation.navigate('SellView', { stock: stockName, stockPrice: stockPrice || stockPrice2, conversionRate: 0.1 })}
                 style={styles.button}
             >
                 SELL
