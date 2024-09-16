@@ -1,6 +1,6 @@
 # Futures
 
-A financial literacy mobile/tablet app that educates children and teenagers on investments
+A financial literacy mobile/tablet app that educates children and teenagers on investments. Project description at https://ballot.hackmit.org/project/xynhg-ekohf-ffaxn-cgsbr 
 
 ## Get started
 
